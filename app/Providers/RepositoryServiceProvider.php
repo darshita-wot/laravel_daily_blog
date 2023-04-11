@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Contracts\UserContracts;
-use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -13,7 +11,9 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(UserContracts::class,UserRepository::class);
+        $this->app->bind(\App\Contracts\UserContracts::class,\App\Repositories\UserRepository::class);
+        $this->app->bind(\App\Contracts\Admin\UserContracts::class,\App\Repositories\Admin\UserRepository::class);
+        $this->app->bind(\App\Contracts\TagContracts::class,\App\Repositories\TagRepository::class);
     }
 
     /**

@@ -41,7 +41,7 @@ class UserController extends Controller
                 // Log::info('data',[$validator->errors()]);
                 return response()->json(['status' => 'error', 'data' => $validator->errors()]);
             } else {
-                Log::info('data', [$this->request->all()]);
+                
                 $data = $this->repo->userRegistration();
                 if (!empty($data)) {
                     return response()->json(['status' => 'success', 'data' => 'user added']);

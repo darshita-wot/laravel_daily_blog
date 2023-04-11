@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -35,3 +36,15 @@ Route::get('logout',[UserController::class,'logout']);
 
 Route::get('/myprofileview',[UserController::class,'getProfileView']);
 Route::post('/myprofileupdate',[UserController::class,'profileupdate']);
+
+Route::get('/users',function(){
+    return view('admin/users');
+});
+
+Route::post('/userlist',[App\Http\Controllers\Admin\UserController::class,'userList']);
+Route::get('/edituser',[App\Http\Controllers\Admin\UserController::class,'editUser']);
+Route::post('/updateuser',[App\Http\Controllers\Admin\UserController::class,'updateUser']);
+Route::get('/userdelete',[App\Http\Controllers\Admin\UserController::class,'deleteUser']);
+
+Route::post('/taglist',[TagController::class,'tagList']);
+Route::resource('tags', TagController::class);

@@ -17,6 +17,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<head><base href="">
 		<meta charset="utf-8" />
 		<title>Home</title>
+		@yield('token')
 		<meta name="description" content="Updates and statistics" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<!--begin::Fonts-->
@@ -275,8 +276,8 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--begin::Page Scripts(used by this page)-->
 		<script src="{{asset('demo8/dist/assets/js/pages/widgets.js?v=7.0.3')}}"></script>
 		<!--end::Page Scripts-->
-
         <script src="{{asset('scripts/all-page.js')}}"></script>
+
         @yield('script')
 	</body>
 	<!--end::Body-->

@@ -200,13 +200,7 @@ var KTLogin = function () {
                             },
                         }
                     },
-                    user_role :{
-                        validators: {
-                            notEmpty: {
-                                message: "Select any role",
-                            },
-                        }
-                    },
+                    
                     agree: {
                         validators: {
                             notEmpty: {

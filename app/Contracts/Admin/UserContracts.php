@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Contracts\Admin;
+
+interface UserContracts
+{
+    public function userList();
+
+    public function editUser();
+
+    public function updateUser();
+
+    public function deleteUser();
+}

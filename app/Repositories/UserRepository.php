@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 class UserRepository implements UserContracts
 {
 
-    private array $apiReturnData = [];
+    private $apiReturnData = [];
     
     public function __construct(User $user, Request $request)
     {
