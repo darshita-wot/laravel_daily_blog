@@ -84,4 +84,17 @@ class UserController extends Controller
             return response()->json(['failed' => $e->getMessage()]);
         }
     }
+
+    public function changeUserStatus(){
+        try{
+            $status = $this->repo->changeUserStatus();
+            if($status){
+                return response()->json(['status'=>'success','data' => 'User Status changed']);
+            }else{
+                return response()->json(['status'=>'error','data' => 'User status not changed!']);
+            }
+        }catch(Exception $e){
+            return response()->json(['failed' => $e->getMessage()]);
+        }
+    }
 }

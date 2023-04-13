@@ -11,4 +11,6 @@ interface UserContracts
     public function updateUser();
 
     public function deleteUser();
+
+    public function changeUserStatus();
 }

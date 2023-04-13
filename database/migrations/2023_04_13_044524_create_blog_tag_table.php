@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\User;
+use App\Models\Blog;
+use App\Models\Tag;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +13,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(User::class)->constrained();
-            $table->string('name');
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::create('blog_tag', function (Blueprint $table) {
+            $table->foreignIdFor(Blog::class)->constrained();
+            $table->foreignIdFor(Tag::class)->constrained();
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('blog_tag');
     }
 };

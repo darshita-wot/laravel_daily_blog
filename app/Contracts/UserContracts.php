@@ -16,6 +16,8 @@ interface UserContracts
 
     public function logout();
 
+    public function setProfile();
+    
     public function getProfileView();
 
     public function profileupdate();

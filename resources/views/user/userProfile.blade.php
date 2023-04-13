@@ -94,7 +94,7 @@
 				<div class="card-toolbar">
 					<!-- <button type="reset" class="btn btn-success mr-2" id="myprofile_submit">Save Changes</button> -->
 					<input type="submit" value="Save Profile" id="myprofile_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2">
-					<button type="reset" class="btn btn-secondary">Cancel</button>
+					<a href="/home" class="btn btn-secondary">Cancel</a>
 				</div>
 			</div>
 		</form>

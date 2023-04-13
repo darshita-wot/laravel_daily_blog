@@ -157,6 +157,18 @@ class UserController extends Controller
         }
     }
 
+    public function setProfile(){
+
+        $profile_photo = $this->repo->setProfile();
+        if(!empty($profile_photo)){
+            return response()->json(['status'=>'success','profile_photo' => $profile_photo]);
+        }else{
+            return response()->json(['status'=>'error']);
+        }
+
+
+    }
+
     public function getProfileView(){
         // $user = User::where('id',Session('id'))->first();
         // Log::info('user',[$user]);

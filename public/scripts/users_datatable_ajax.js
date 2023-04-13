@@ -96,14 +96,23 @@ var KTDatatableRemoteAjaxDemo = function() {
                     var status = {
                         1: {
                             'title': 'Active',
-                            'class': ' label-light-success'
+                            'class': 'checked'
                         },
                         0: {
                             'title': 'Inactive',
-                            'class': ' label-light-danger'
+                            'class': ' '
                         },
                     };
-                    return '<span class="label font-weight-bold label-lg ' + status[row.is_active].class + ' label-inline">' + status[row.is_active].title + '</span>';
+                    // return '<span class="label font-weight-bold label-lg ' + status[row.is_active].class + ' label-inline">' + status[row.is_active].title + '</span>';
+                    return `
+                    <div class="col-3">
+                        <span class="switch switch-primary">
+                            <label>
+                                <input id='user${row.id}' class='check-class' ${row.is_active == 1 ? 'checked' : ''} type="checkbox"  value='${row.is_active}' name="select"/>
+                                <span></span>
+                            </label>
+                        </span>
+                    </div>`;
                 },
             }, 
             {
@@ -561,4 +570,29 @@ jQuery(document).ready(function() {
         });
     })
 
+    $(document).on('click','.check-class',function(){
+        let user_id = $(this).attr('id');
+        let id = user_id.substring(4,user_id.length);
+        console.log(id);
+
+        let is_active = $(this).is(':checked') ? 1 : 0;
+        $.ajax({
+            url: '/userstatus',
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                    "content"
+                ),
+            },
+            type:'POST',
+            data:{is_active : is_active,id : id },
+            dataType:'json',
+            success:function(response){
+                if(response.status == 'success'){
+                    toastr.success(`${response.data}`)
+                }else{
+                    toastr.error(`${response.data}`);
+                }
+            }
+        })
+    })
 });

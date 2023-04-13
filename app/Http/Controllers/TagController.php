@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Validator;
 
 class TagController extends Controller
 {
-    public function __construct(Request $request, TagContracts $userContracts)
+    public function __construct(Request $request, TagContracts $tagContracts)
     {
         $this->request = $request;
-        $this->repo = $userContracts;
+        $this->repo = $tagContracts;
     }
     /**
      * Display a listing of the resource.
@@ -35,14 +35,6 @@ class TagController extends Controller
 }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store()
@@ -53,7 +45,7 @@ class TagController extends Controller
                 $this->request->all(),
                 [
                     'tagname' => 'string|required|max:50|',Rule::unique('tags')->where(function ($query) use ($user_id) {
-                        $query->where('user_id','==',$user_id);
+                        $query->where('user_id',$user_id);
                     })],
 
                 [
@@ -77,13 +69,6 @@ class TagController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        
-    }
 
     /**
      * Show the form for editing the specified resource.

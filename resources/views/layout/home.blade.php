@@ -115,7 +115,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<!--begin::Symbol-->
 											<div class="symbol symbol-md bg-light-primary mr-3 flex-shrink-0">
 												<!-- <img src="{{asset('demo8/dist/assets/media/users/300_21.jpg')}}" alt="" /> -->
-                                                <img src="{{asset('storage/'.Session('profile_photo'))}}" alt="" id="profile_photo"/>
+                                                <img src="" alt="" id="profile_photo"/>
 											</div>
 											<!--end::Symbol-->
 											<!--begin::Text-->
@@ -200,6 +200,9 @@ License: You must have a valid license purchased only from themeforest(the above
 										</a>
 										
 									</li>
+
+									@role('admin')
+
 									<li class="menu-item 
 									@if(Request::is('users')) menu-item-open menu-item-here
 									@endif"  aria-haspopup="true">
@@ -208,6 +211,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										</a>
 										
 									</li>
+									@endrole
 								</ul>
 								<!--end::Header Nav-->
 							</div>
@@ -276,6 +280,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--begin::Page Scripts(used by this page)-->
 		<script src="{{asset('demo8/dist/assets/js/pages/widgets.js?v=7.0.3')}}"></script>
 		<!--end::Page Scripts-->
+		<script src="{{asset('demo8/dist/assets/js/pages/crud/file-upload/image-input.js?v=7.2.9')}}"></script>
         <script src="{{asset('scripts/all-page.js')}}"></script>
 
         @yield('script')

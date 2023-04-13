@@ -44,7 +44,7 @@ class UserRepository implements UserContracts
             $search_string = implode(" ", $search);
             Log::info('search string',[$search_string]);
 
-            $users = User::orderBy($field,$sort)->where(function ($query) use ($search_string) {
+            $users = User::orderBy($field,$sort)->where('name','!=','admin')->where(function ($query) use ($search_string) {
                 $query->where('name', 'like',  $search_string . '%')->orWhere('id', 'like',  $search_string . '%')->orWhere('mobile_no', 'like',  $search_string . '%')->orWhere('email', 'like',  $search_string . '%')
                 ->orWhere('birth_date', 'like',  $search_string . '%');
             })->skip($skip)->take($perpage)->get();
@@ -53,7 +53,7 @@ class UserRepository implements UserContracts
                 // Log::info("inside if", $search);
                 $total_records = count($users);
             } else {
-                $total_records = User::all()->count();
+                $total_records = User::where('name','!=','admin')->count();
             }
             Log::info("inside else", [$total_records]);
             $this->apiReturnData['data'] = $users;
@@ -80,6 +80,12 @@ class UserRepository implements UserContracts
 
     public function deleteUser(){
         $status = User::where('id',$this->request->id)->delete();
+       
+        return $status;
+    }
+
+    public function changeUserStatus(){
+        $status = User::where('id',$this->request->id)->update(['is_active' => $this->request->is_active]);
         Log::info('status',[$status]);
         return $status;
     }

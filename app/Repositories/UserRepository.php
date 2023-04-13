@@ -147,6 +147,16 @@ class UserRepository implements UserContracts
 
     }
 
+    public function setProfile(){
+        if(Auth::check()){
+            $id = Auth::id();
+            $profile_photo = User::where('id',$id)->pluck('profile_photo')->toArray();
+            return $profile_photo;
+        }else{
+            return false;
+        }
+    }
+
     public function getProfileView()
     {
         $user = User::where('id',Session('id'))->first();
@@ -162,7 +172,7 @@ class UserRepository implements UserContracts
             $image = $this->request->file('profile_avatar');
             $name = $image->getClientOriginalName();
             $path = $this->request->file('profile_avatar')->store('images', 'public');
-            Session('profile_photo');
+            
         }else{
            $user =  User::where('id', $this->request->id)->first();
            $path = $user->profile_photo;
