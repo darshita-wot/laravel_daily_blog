@@ -147,14 +147,29 @@ License: You must have a valid license purchased only from themeforest(the above
 											</a>
 											<!--end::Item-->
 											
+											<!-- begin:: notification -->
+											<a href="/mypendingtasks" class="navi-item px-8">
+												<div class="navi-link">
+												<div class="navi-icon mr-2">
+                									<i class="flaticon2-hourglass text-primary"></i>
+           										 </div>
+													<div class="navi-text">
+														<div class="font-weight-bold">Pending Tasks</div>
+														<div class="text-muted">Inbox</div>
+													</div>
+												</div>
+											</a>
+											<!-- end:: notification -->
 											<!--begin::Footer-->
 											<div class="navi-separator mt-3"></div>
 											<div class="navi-footer px-8 py-5">
-												<a href="/logout" target="_blank" class="btn btn-light-primary font-weight-bold">Sign Out</a>
+												<a href="/logout"  class="btn btn-light-primary font-weight-bold">Sign Out</a>
 											</div>
+											
 											<!--end::Footer-->
 										</div>
 										<!--end::Nav-->
+										
 									</div>
 									<!--end::Dropdown-->
 								</div>

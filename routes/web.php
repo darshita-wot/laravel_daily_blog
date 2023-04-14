@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CountController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
@@ -34,7 +36,10 @@ Route::get('logout',[UserController::class,'logout']);
 Route::get('/myprofileview',[UserController::class,'getProfileView']);
 Route::post('/myprofileupdate',[UserController::class,'profileupdate']);
 Route::get('/setprofile',[UserController::class,'setProfile']);
-Route::get('userprofileview/{id}',[UserController::class,'userProfileView']);
+Route::get('/userprofileview/{id}',[UserController::class,'userProfileView']);
+Route::get('/mypendingtasks',[UserController::class,'userPendingTaskView']);
+Route::post('/userpendingtasklist',[UserController::class,'userPendingTaskList']);
+Route::post('/commentapprove',[UserController::class,'commentAprrove']);
 
 Route::get('/users',function(){
     return view('admin/users');
@@ -57,3 +62,8 @@ Route::post('/addblog',[BlogController::class,'addBlog']);
 Route::get('/blog/edit/{id}',[BlogController::class,'editBlog']);
 Route::post('/updateblog',[BlogController::class,'updateBlog']);
 Route::delete('/deleteblog/{id}',[BlogController::class,'deleteBlog']);
+Route::get('/singleblog/{id}',[BlogController::class,'singleBlog']);
+
+Route::post('/setlike',[CountController::class,'setLike']);
+
+Route::post('/blog/comment/{blog_id}',[CommentController::class,'addComment']);

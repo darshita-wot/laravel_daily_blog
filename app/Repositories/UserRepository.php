@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Contracts\UserContracts;
+use App\Models\Comment;
 use App\Models\PasswordResetToken;
 use App\Models\User;
 use Illuminate\Support\Carbon;
@@ -19,7 +20,7 @@ class UserRepository implements UserContracts
 {
 
     private $apiReturnData = [];
-    
+
     public function __construct(User $user, Request $request)
     {
         $this->model = $user;
@@ -36,7 +37,7 @@ class UserRepository implements UserContracts
             'birth_date' => $this->request->birthday_date
         ]);
 
-            $user->assignRole('user');
+        $user->assignRole('user');
 
         return $user;
     }
@@ -48,8 +49,8 @@ class UserRepository implements UserContracts
         $rememberMe = $this->request->has('remember') ? true : false;
 
         if ($this->request->has('remember')) {
-            setcookie('username', $this->request->username, time() + 60 );
-            setcookie('password', $this->request->password, time() + 60 );
+            setcookie('username', $this->request->username, time() + 60);
+            setcookie('password', $this->request->password, time() + 60);
         }
 
         if (auth()->attempt([$fieldType => $this->request->username, 'password' => $this->request->password], $rememberMe)) {
@@ -147,42 +148,93 @@ class UserRepository implements UserContracts
 
     }
 
-    public function setProfile(){
-        if(Auth::check()){
+    public function setProfile()
+    {
+        if (Auth::check()) {
             $id = Auth::id();
-            $profile_photo = User::where('id',$id)->pluck('profile_photo')->toArray();
+            $profile_photo = User::where('id', $id)->pluck('profile_photo')->toArray();
             return $profile_photo;
-        }else{
+        } else {
             return false;
         }
     }
 
     public function getProfileView()
     {
-        $user = User::where('id',Session('id'))->first();
-        Log::info('user',[$user]);
+        $user = User::where('id', Session('id'))->first();
+        Log::info('user', [$user]);
         return $user;
     }
 
     public function profileupdate()
     {
         if ($this->request->file('profile_avatar') != null) {
-           
+
             //Upload image inside public/images folder
             $image = $this->request->file('profile_avatar');
             $name = $image->getClientOriginalName();
             $path = $this->request->file('profile_avatar')->store('images', 'public');
-            
-        }else{
-           $user =  User::where('id', $this->request->id)->first();
-           $path = $user->profile_photo;
+
+        } else {
+            $user = User::where('id', $this->request->id)->first();
+            $path = $user->profile_photo;
         }
-        $status = User::where('id', $this->request->id)->update(['profile_photo' => $path, 'name' => $this->request->fullname,'email'=> $this->request->email]);
-            
-        Log::info('path',[$path]);
-        Log::info('status',[$status]);
+        $status = User::where('id', $this->request->id)->update(['profile_photo' => $path, 'name' => $this->request->fullname, 'email' => $this->request->email]);
+
+        Log::info('path', [$path]);
+        Log::info('status', [$status]);
         $this->apiReturnData['status'] = $status;
         $this->apiReturnData['profile_photo'] = $path;
         return $this->apiReturnData;
+    }
+
+    public function userProfileView(string $id)
+    {
+        $user_data = User::where('id', $id)->first();
+        return $user_data;
+    }
+
+    public function userPendingTaskList()
+    {
+        // $id = Auth::id();
+        // $comments = Comment::join('blogs','comments.blog_id',
+        // '=','blogs.id')->select('comments.id','comments.text','blogs.title')->where('blog_owner_id',$id)->where('status',0)->get();
+        // Log::info('comment data',[$comments]);
+        // return $comments;
+
+        if ($this->request->ajax()) {
+
+            $page = $this->request->pagination['page'];
+            $perpage = $this->request->pagination['perpage'];
+
+            $field = $this->request->sort['field'];
+            $sort = $this->request->sort['sort'];
+
+            $skip = ($page - 1) * $perpage;
+            $id = Auth::id();
+            
+            $total_records = Comment::where('blog_owner_id', $id)->where('status', 0)->count();
+
+           
+            $comments = Comment::join(
+                'blogs',
+                'comments.blog_id',
+                '=',
+                'blogs.id'
+            )->select('comments.id', 'comments.text', 'blogs.title')->where('blog_owner_id', $id)->where('status', 0)->skip($skip)->take($perpage)->get();
+
+
+
+            $this->apiReturnData['data'] = $comments;
+            $this->apiReturnData['meta'] = array("page" => $page, "pages" => ceil($total_records / $perpage), "perpage" => $perpage, "total" => $total_records);
+            return $this->apiReturnData;
+        }
+    }
+
+    public function commentAprrove()
+    {
+        $status = Comment::where('id', $this->request->id)->update(['status' => $this->request->status]);
+        Log::info('status', [$status]);
+        return $status;
     }
 }

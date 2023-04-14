@@ -72,7 +72,7 @@ class BlogRepository implements BlogContracts
 
     public function allBlogs()
     {
-        $blogs = Blog::with('user')->where('user_id', '!=', Session('id'))->orderBy('id', 'DESC')->get();
+        $blogs = Blog::with(['user'])->where('user_id', '!=', Session('id'))->get();
         return $blogs;
     }
 
@@ -114,5 +114,13 @@ class BlogRepository implements BlogContracts
         $status = Blog::where('id',$this->request->id)->delete();
        
         return $status;
+    }
+
+    public function singleBlog(string $id){
+        $blog = Blog::with(['user','comments' => function($query){
+            $query->select('id','blog_id','user_name','text')->where('status',1);
+        }])->where('id',$id)->first();
+        Log::info('single blog',[$blog]);
+        return $blog;
     }
 }

@@ -21,4 +21,10 @@ interface UserContracts
     public function getProfileView();
 
     public function profileupdate();
+
+    public function userProfileView(string $id);
+
+    public function userPendingTaskList();
+
+    public function commentAprrove();
 }

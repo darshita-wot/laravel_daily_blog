@@ -187,4 +187,37 @@ class UserController extends Controller
             return response()->json(['status' => 'success', 'profile_photo' => $data['profile_photo']]);
         }
     }
+
+    public function userProfileView(string $id){
+        $user = $this->repo->userProfileView($id);
+        Log::info('user profile view ',[$user]);
+        return view('userProfileVisit',compact('user'));
+    }
+
+    public function userPendingTaskView(){
+        
+        return view('user.userPendingTask');
+        
+    }
+
+    public function userPendingTaskList(){
+        $data = $this->repo->userPendingTaskList();
+        return response()->json([
+            'status' => 'success',
+            'data' => $data['data'],
+            "meta" => $data['meta']
+        ]);
+    }
+    
+    public function commentAprrove(){
+        try{
+            $status = $this->repo->commentAprrove();
+            if($status){
+                return response()->json(['status'=>'success','data' => 'Comment approved']);
+            }
+            
+        }catch(Exception $e){
+            return response()->json(['failed' => $e->getMessage()]);
+        }
+    }
 }

@@ -132,4 +132,9 @@ class BlogController extends Controller
             return response()->json(['failed' => $e->getMessage()]);
         }
     }
+
+    public function singleBlog(string $id){
+        $blog = $this->repo->singleBlog($id);
+        return view('singleBlog',compact('blog'));
+    }
 }

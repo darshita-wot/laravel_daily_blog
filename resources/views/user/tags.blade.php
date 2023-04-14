@@ -70,7 +70,7 @@
 
 <!-- Modal for adding Tag-->
 <div class="modal fade" id="addTagModal" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
-    <div class="modal-dialog " role="document">
+    <div class="modal-dialog-centered modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="TagModalLabel">Add Tag</h5>
@@ -105,10 +105,10 @@
 
 <!-- Modal for updating Tag-->
 <div class="modal fade" id="updateTagModal" tabindex="-1" role="dialog" aria-labelledby="tagModalLabel" aria-hidden="true">
-    <div class="modal-dialog " role="document">
+    <div class="modal-dialog-centered modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="TagModalLabel">Add Tag</h5>
+                <h5 class="modal-title" id="TagModalLabel">Update Tag</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>

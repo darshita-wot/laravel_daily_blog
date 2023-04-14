@@ -18,4 +18,6 @@ interface BlogContracts
     public function updateBlog();
 
     public function deleteBlog(string $id);
+
+    public function singleBlog(string $id);
 }

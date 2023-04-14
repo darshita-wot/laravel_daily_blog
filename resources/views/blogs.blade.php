@@ -55,7 +55,7 @@
                            </div>
                            <div class="{{ $blog->id }}footer card-footer justify-content-between">
                                
-                               <a id='{{ $blog->id }}' href="/blog/{{ $blog->id }}" class="btn btn-outline-secondary font-weight-bold readMore">Read more</a>
+                               <button id='blog-no{{$blog->id}}'  class="btn btn-outline-secondary font-weight-bold readMore">Read more</button>
                                
                                @role('admin')
 							      <button  class="deleteBlog btn btn-sm btn-primary ml-3" id='deleteBlog{{$blog->id}}'>Delete</button>
@@ -117,9 +117,6 @@
      <div class="form-group">
      <label for="img">Select image:</label>
      <input type="file" class="form-control form-control-solid" id="img" name="img" accept="image/*">
-            @if($errors->has('img'))
-                <span class="text-danger"> {{$errors->first('img')}}</span>
-            @endif
             <br><span class="text-danger" id="error_img"></span>
      </div>
     </div>
