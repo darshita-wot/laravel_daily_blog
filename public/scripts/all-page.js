@@ -274,6 +274,7 @@ $(document).ready(function () {
                     $('#myTabContent').children().removeClass('active show');
                     $('#kt_tab_pane_1').addClass('active show');
                     $(document).find('.nav-tabs.nav-tabs-line').children().find('.editBlogTab').hide();
+                    window.location.reload();
                 }
             },
         })

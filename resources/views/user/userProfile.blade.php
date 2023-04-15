@@ -51,13 +51,14 @@
 						</div>
 					</div>
 					
-					<div class="form-group row">
+					<!-- <div class="form-group row">
 						<label class="col-xl-3 col-lg-3 col-form-label text-right">Set Status</label>
 						<div class="col-lg-9 col-xl-6">
 							<input class="form-control form-control-lg form-control-solid" name='status' type="text" value="Loop Inc.">
 							<span class="form-text text-muted">If you want your invoices addressed to a company. Leave blank to use your full name.</span>
 						</div>
-					</div>
+					</div> -->
+					
 					<div class="row">
 						<label class="col-xl-3"></label>
 						<div class="col-lg-9 col-xl-6">

@@ -31,6 +31,7 @@ Route::post('/forgotpassword', [UserController::class, 'forgotPassword']);
 Route::get('/resetpassword', [UserController::class, 'loadResetPassword']);
 Route::post('/resetpassword', [UserController::class, 'resetPassword']);
 
+// Route::group(['middleware' => ['web']]);
 Route::get('logout',[UserController::class,'logout']);
 
 Route::get('/myprofileview',[UserController::class,'getProfileView']);
@@ -40,6 +41,8 @@ Route::get('/userprofileview/{id}',[UserController::class,'userProfileView']);
 Route::get('/mypendingtasks',[UserController::class,'userPendingTaskView']);
 Route::post('/userpendingtasklist',[UserController::class,'userPendingTaskList']);
 Route::post('/commentapprove',[UserController::class,'commentAprrove']);
+
+Route::group(['middleware' => ['role_or_permission:admin|create-users|edit-users|delete-users']],function(){
 
 Route::get('/users',function(){
     return view('admin/users');
@@ -51,6 +54,10 @@ Route::post('/updateuser',[App\Http\Controllers\Admin\UserController::class,'upd
 Route::get('/userdelete',[App\Http\Controllers\Admin\UserController::class,'deleteUser']);
 Route::post('/userstatus',[App\Http\Controllers\Admin\UserController::class,'changeUserStatus']);
 
+});
+
+Route::group(['middleware' => ['role:user']],function(){
+
 Route::post('/taglist',[TagController::class,'tagList']);
 Route::resource('tags', TagController::class);
 
@@ -61,9 +68,15 @@ Route::post('/upload', [BlogController::class, 'uploadBlogImg']);
 Route::post('/addblog',[BlogController::class,'addBlog']);
 Route::get('/blog/edit/{id}',[BlogController::class,'editBlog']);
 Route::post('/updateblog',[BlogController::class,'updateBlog']);
-Route::delete('/deleteblog/{id}',[BlogController::class,'deleteBlog']);
 Route::get('/singleblog/{id}',[BlogController::class,'singleBlog']);
 
 Route::post('/setlike',[CountController::class,'setLike']);
 
 Route::post('/blog/comment/{blog_id}',[CommentController::class,'addComment']);
+
+});
+
+Route::group(['middleware' => ['permission:delete-blog-posts']],function(){
+Route::delete('/deleteblog/{id}',[BlogController::class,'deleteBlog']);
+
+});
