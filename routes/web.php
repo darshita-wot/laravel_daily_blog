@@ -56,7 +56,7 @@ Route::post('/userstatus',[App\Http\Controllers\Admin\UserController::class,'cha
 
 });
 
-Route::group(['middleware' => ['role:user']],function(){
+Route::group(['middleware' => ['role:admin|user']],function(){
 
 Route::post('/taglist',[TagController::class,'tagList']);
 Route::resource('tags', TagController::class);
