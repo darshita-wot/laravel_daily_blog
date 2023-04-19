@@ -54,8 +54,5 @@ Class CountRepository implements CountContracts
           return $follower_count;
     }
 
-    public function rateuser()
-    {
-        
-    }
+    
 }

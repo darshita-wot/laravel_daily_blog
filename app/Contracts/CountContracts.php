@@ -8,5 +8,4 @@ interface CountContracts
 
     public function followUser();
 
-    public function rateuser();
 }

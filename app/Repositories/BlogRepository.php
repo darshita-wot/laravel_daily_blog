@@ -79,7 +79,7 @@ class BlogRepository implements BlogContracts
     { 
         // $blogs = Blog::with(['counts','user'])->withCount('counts','comments')->where('user_id', '!=', Session('id'))->whereNull('deleted_at')->get();
         $blogs = Blog::where('user_id', '!=', Session('id'))->whereNull('deleted_at')->with(['counts' => function($query){
-            $query->where('user_id','!=',Session('id'));
+            $query->where('user_id',Session('id'));
         },'user'])->withCount('counts','comments')->paginate(2);
         
         return $blogs;
