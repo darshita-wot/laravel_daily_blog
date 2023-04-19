@@ -20,7 +20,7 @@
             <!--begin::Info-->
             <div class="d-flex flex-column flex-grow-1">
                 <a href="userprofileview/{{$blog->user->id}}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">{{$blog->user->name }}</a>
-                <span class="text-muted font-weight-bold">By {{$blog->user->name}} on {{ Str::substr($blog->user->created_at, 0, 10) }}</span>
+                <span class="text-muted font-weight-bold">By {{$blog->user->name}} on {{$blog->user->created_at->format('d/m/Y')}} </span>
             </div>
             <!--end::Info-->
 
@@ -42,6 +42,9 @@
 												 <div class=" content tags py-0 px-5 mx-5">
 													 <b>Tags:- </b> <span id="blogTag"> {{$blog->tags}}</span>    
 											     </div>
+												 <div class=" content tags py-0 px-5 mt-3 mx-5">
+												 
+												 </div>
 										    </div>
 
 							@hasanyrole('admin|user')

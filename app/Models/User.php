@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\Blog;
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -90,5 +91,10 @@ class User extends Authenticatable
     public function counts(): MorphMany
     {
         return $this->morphMany(Count::class,'countable');
+    }
+
+    public function ratings(): MorphMany
+    {
+        return $this->morphMany(Rating::class,'ratingable');
     }
 }

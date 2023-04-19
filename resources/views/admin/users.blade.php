@@ -45,7 +45,7 @@
 																</span>
 															</div>
 														</div>
-														<div class="col-md-4 my-2 my-md-0">
+														<!-- <div class="col-md-4 my-2 my-md-0">
 															<div class="d-flex align-items-center">
 																<label class="mr-3 mb-0 d-none d-md-block">Status:</label>
 																<select class="form-control" id="kt_datatable_search_status">
@@ -55,7 +55,7 @@
 																	
 																</select>
 															</div>
-														</div>
+														</div> -->
 														
 													</div>
 												</div>

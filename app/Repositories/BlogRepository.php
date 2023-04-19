@@ -4,9 +4,11 @@ namespace App\Repositories;
 
 use App\Contracts\BlogContracts;
 use App\Models\Blog;
+use App\Models\Comment;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class BlogRepository implements BlogContracts
@@ -65,14 +67,21 @@ class BlogRepository implements BlogContracts
     public function userBlogs()
     {
         $id = Session('id');
-        $user_blogs = User::with('blogs', 'tags')->where('id', $id)->first();
-        // Log::info('user blogs',[$user_blogs]);
+        $user = User::find($id);
+        $user_blogs = $user->with('blogs', 'tags')->where('id', $id)->first();
+        $counts = Blog::withCount('counts','comments')->where('user_id', Session('id'))->whereNull('deleted_at')->get();
+        Log::info('user blogs',[$user_blogs]);
+        Log::info('counts',[$counts]);
         return $user_blogs;
     }
 
     public function allBlogs()
-    {
-        $blogs = Blog::with(['user'])->where('user_id', '!=', Session('id'))->get();
+    { 
+        // $blogs = Blog::with(['counts','user'])->withCount('counts','comments')->where('user_id', '!=', Session('id'))->whereNull('deleted_at')->get();
+        $blogs = Blog::where('user_id', '!=', Session('id'))->whereNull('deleted_at')->with(['counts' => function($query){
+            $query->where('user_id','!=',Session('id'));
+        },'user'])->withCount('counts','comments')->paginate(2);
+        
         return $blogs;
     }
 

@@ -25,6 +25,9 @@
 <div class="tab-content mt-5" id="myTabContent">
     <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel" aria-labelledby="kt_tab_pane_2">
 
+    @if($blogs->blogs->isEmpty())
+    <p>No Records found</p>
+    @else
     @foreach($blogs->blogs as $blog)
     <div class="content flex-column-fluid p-2" id="{{ $blog->id }}blog">
                        <div class="card card-custom" >
@@ -67,7 +70,7 @@
                        </div>
            </div>
  @endforeach
- 
+ @endif
     <!-- add blog content -->
 </div>
     <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel" aria-labelledby="kt_tab_pane_2">

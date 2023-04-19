@@ -190,8 +190,10 @@ class UserRepository implements UserContracts
 
     public function userProfileView(string $id)
     {
-        $user_data = User::where('id', $id)->first();
-        return $user_data;
+        $user = User::find($id);
+        $apiReturnData['user_data'] = $user->with('counts')->withCount('counts')->first();
+        $apiReturnData['averageRating'] = $user->ratings()->avg('rating');
+        return $apiReturnData;
     }
 
     public function userPendingTaskList()

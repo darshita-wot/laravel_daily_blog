@@ -2,19 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Count extends Model
+class Rating extends Model
 {
     use HasFactory;
+    protected $fillable = ['user_id', 'rating'];
 
-    protected $fillable = [
-       'total',
-       'user_id'
-    ];
-
-    public function countable()
+    public function ratingable()
     {
         return $this->morphTo();
     }

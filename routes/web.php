@@ -3,6 +3,7 @@
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CountController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
@@ -74,9 +75,12 @@ Route::post('/setlike',[CountController::class,'setLike']);
 
 Route::post('/blog/comment/{blog_id}',[CommentController::class,'addComment']);
 
+Route::post('followuser',[CountController::class,'followUser']);
+
+Route::post('/rateuser',[RatingController::class,'rateUser']);
+
 });
 
 Route::group(['middleware' => ['permission:delete-blog-posts']],function(){
-Route::delete('/deleteblog/{id}',[BlogController::class,'deleteBlog']);
-
+    Route::delete('/deleteblog/{id}',[BlogController::class,'deleteBlog']);
 });

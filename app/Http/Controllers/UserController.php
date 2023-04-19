@@ -189,9 +189,11 @@ class UserController extends Controller
     }
 
     public function userProfileView(string $id){
-        $user = $this->repo->userProfileView($id);
+        $user_data = $this->repo->userProfileView($id);
+        $user = $user_data['user_data'];
+        $rating = $user_data['averageRating'];
         Log::info('user profile view ',[$user]);
-        return view('userProfileVisit',compact('user'));
+        return view('userProfileVisit',compact('user','rating'));
     }
 
     public function userPendingTaskView(){

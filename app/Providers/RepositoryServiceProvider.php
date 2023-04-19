@@ -17,6 +17,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(\App\Contracts\BlogContracts::class,\App\Repositories\BlogRepository::class);
         $this->app->bind(\App\Contracts\CommentContracts::class,\App\Repositories\CommentRepository::class);
         $this->app->bind(\App\Contracts\CountContracts::class,\App\Repositories\CountRepository::class);
+        $this->app->bind(\App\Contracts\RatingContracts::class,\App\Repositories\RatingRepository::class);
     }
 
     /**

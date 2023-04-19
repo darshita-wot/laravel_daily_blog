@@ -71,7 +71,7 @@ class UserRepository implements UserContracts
 
     public function updateUser()
     {
-        $status = User::Where('id', Session('edit_user_id'))->update([
+        $status = User::find(Session('edit_user_id'))->update([
             'name' => $this->request->fullname,
             'email' => $this->request->email,
             'password' => Hash::make($this->request->password),
@@ -84,7 +84,7 @@ class UserRepository implements UserContracts
 
     public function deleteUser()
     {
-        $status = User::where('id', $this->request->id)->delete();
+        $status = User::find($this->request->id)->delete();
 
         return $status;
     }

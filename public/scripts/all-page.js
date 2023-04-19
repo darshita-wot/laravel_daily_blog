@@ -40,6 +40,67 @@ $(document).ready(function () {
        
     })
 
+    $(document).on('click','.follow',function(e){
+        let user_id = $(this).attr('id');
+        let id = user_id.substring(6, user_id.length);
+        console.log(id);
+        if($(this).hasClass('label-success')){
+            e.preventDefault();
+        }else{
+            $.ajax({
+                url: '/followuser',
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                type: "POST",
+                data:{id:id},
+                dataType: "json",
+                success: function (response) {
+                    if (response.status == 'success') {
+                        $(`#follow${id}`).removeClass('label-info').addClass(`label-success`);
+                        $('.total-followers').text(`${response.data} Followers`)
+                        $(`#follow${id}`).text(`Following`);
+                    }
+                },
+            })
+        }
+       
+    })
+
+    $(document).on('click','#rateUser',function(e){
+        e.preventDefault();
+        let formData = $('#rating_form').serialize();
+        console.log(formData);
+
+        $.ajax({
+            url: '/rateuser',
+            
+            type: "POST",
+            data:formData,
+            dataType: "json",
+            success: function (response) {
+                if (response.status == 'success') {
+                    $('#rating').prop('selectedIndex',0);
+                    console.log(response.data);
+                    let star = Math.floor(response.data);
+                    for(i=1;i<=star;i++){
+                        let rating = `<div  class="d-flex flex-row  my-5">
+                        <div class="fa-item col-md-3 col-sm-4">
+                          <i class="fa fa-star"></i></div>                         
+                        </div>`
+
+                        $('#user_rating').append( `${rating}`);
+                    }
+                    
+                    // $(`#like${id}`).addClass(`bg-light-danger btn-text-danger`);
+                    // $(`#${id}total`).text(`${response.data}`);
+                }
+            },
+        })
+    })
+
     function showBlog(blog_id){
         let id = blog_id.substring(7, blog_id.length);
         console.log(id);
@@ -281,6 +342,7 @@ $(document).ready(function () {
     })
 
     $(document).on('click', '.deleteBlog', function () {
+        
         let delete_id = $(this).attr('id');
         let id = delete_id.substring(10, delete_id.length);
 
@@ -311,9 +373,9 @@ $(document).ready(function () {
                     type: "DELETE",
                     dataType: "json",
                     success: function (response) {
+                        $(`#deleteBlog${id}`).parent().parent().parent('.card-custom').remove();
                         $(`#deleteBlog${id}`).parent().parent(".card").remove();
                         if (response.status == 'success') {
-
                             toastr.error(`${response.data}`);
                         } else {
                             toastr.error(`${response.data}`);
@@ -332,5 +394,4 @@ $(document).ready(function () {
     })
 
     
-
 })

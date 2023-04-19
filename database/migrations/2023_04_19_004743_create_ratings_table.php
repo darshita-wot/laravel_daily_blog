@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Blog;
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Blog::class)->constrained()->onDelete('cascade');;
-            $table->string('user_name');
-            $table->string('text');
-            $table->integer('blog_owner_id');
-            $table->boolean('status')->default(0);
+            $table->unsignedBigInteger('user_id');
+            $table->morphs('ratingable');
+            $table->smallInteger('rating');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unique(['user_id', 'ratingable_id']);
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('ratings');
     }
 };
