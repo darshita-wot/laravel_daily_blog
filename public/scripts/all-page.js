@@ -85,6 +85,7 @@ $(document).ready(function () {
                     $('#rating').prop('selectedIndex',0);
                     console.log(response.data);
                     let star = Math.floor(response.data);
+                    $('#user_rating').html('');
                     for(i=1;i<=star;i++){
                         let rating = `<div  class="d-flex flex-row  my-5">
                         <div class="fa-item col-md-3 col-sm-4">
