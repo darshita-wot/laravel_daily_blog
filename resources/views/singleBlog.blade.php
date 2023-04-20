@@ -39,13 +39,47 @@
 											      <div class="content" id="blogContent">
 											            {!! $blog->content !!}
 											     </div>
-												 <div class=" content tags py-0 px-5 mx-5">
-													 <b>Tags:- </b> <span id="blogTag"> {{$blog->tags}}</span>    
+												 <div class=" content tags py-0 mb-3 px-5 mx-5">
+												 <span class="text-dark font-size-lg font-weight-bolder">Tags:- </span> <span id="blogTag"> {{$blog->tags}}</span>    
 											     </div>
-												 <div class=" content tags py-0 px-5 mt-3 mx-5">
-												 
+												 <span class="text-dark content py-0 mb-3 px-5 mx-5 font-size-lg font-weight-bolder pb-3">
+                    Blog Rating
+                </span>
+												 <div class="content tags py-0 px-5 mx-5 d-flex" id="blog_rating">
+           
+            @for ($i = 1 ; $i <= floor($rating); $i++)
+            <div  class="d-flex flex-row  my-5">
+                        <div class="fa-item col-md-3 col-sm-4">
+                          <i class="fa fa-star"></i></div>                         
+                        </div>
+               @endfor
+           
+            
+            </div>
+												 <div class=" content tags py-0 px-5 mt-5 mx-5">
+												   
+													<form id="blog_rating_form"  method="POST">
+  @csrf
+  <input type="hidden" name="rated_blog_id" value="{{ $blog->id }}">
+  <div class="form-group ">
+  <span class="text-dark mr-2 font-size-lg font-weight-bolder pb-3">
+                    Rate Blog
+                </span>
+            
+    <select class="form-control w-25" id="rating" name="rating">
+      <option value="1">1 star</option>
+      <option value="2">2 stars</option>
+      <option value="3">3 stars</option>
+      <option value="4">4 stars</option>
+      <option value="5">5 stars</option>
+    </select>
+  </div>
+  <!-- <button type="submit" class="btn btn-primary">Submit Rating</button> -->
+  <button id="rateBlog" class="btn btn-light-dark font-weight-bold ">Rate Blog</button>
+</form>
 												 </div>
 										    </div>
+
 
 							@hasanyrole('admin|user')
 		                        <div class="card-footer  justify-content-between">

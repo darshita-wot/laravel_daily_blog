@@ -78,9 +78,9 @@ class BlogRepository implements BlogContracts
     public function allBlogs()
     { 
         // $blogs = Blog::with(['counts','user'])->withCount('counts','comments')->where('user_id', '!=', Session('id'))->whereNull('deleted_at')->get();
-        $blogs = Blog::where('user_id', '!=', Session('id'))->whereNull('deleted_at')->with(['counts' => function($query){
+        $blogs = Blog::where('user_id', '!=', Session('id'))->whereNull('deleted_at')->with(['user','counts' => function($query){
             $query->where('user_id',Session('id'));
-        },'user'])->withCount('counts','comments')->paginate(2);
+        }])->withCount('counts','comments')->paginate(2);
         
         return $blogs;
     }
@@ -126,10 +126,13 @@ class BlogRepository implements BlogContracts
     }
 
     public function singleBlog(string $id){
+
         $blog = Blog::with(['user','comments' => function($query){
             $query->select('id','blog_id','user_name','text')->where('status',1);
-        }])->where('id',$id)->first();
+        }])->find($id);
+        $apiReturnData['blog_data'] = $blog;
         Log::info('single blog',[$blog]);
-        return $blog;
+        $apiReturnData['averageRating'] = $blog->ratings()->avg('rating');
+        return $apiReturnData;
     }
 }

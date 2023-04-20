@@ -187,4 +187,37 @@ $(document).ready(function () {
             }
         })
     })
+
+    $(document).on('click','#rateBlog',function(e){
+        e.preventDefault();
+        let formData = $('#blog_rating_form').serialize();
+        console.log(formData);
+
+        $.ajax({
+            url: '/rateblog',
+            
+            type: "POST",
+            data:formData,
+            dataType: "json",
+            success: function (response) {
+                if (response.status == 'success') {
+                    $('#rating').prop('selectedIndex',0);
+                    console.log(response.data);
+                    let star = Math.floor(response.data);
+                    $('#blog_rating').html('');
+                    for(i=1;i<=star;i++){
+                        let rating = `<div  class="d-flex flex-row  my-5">
+                        <div class="fa-item col-md-3 col-sm-4">
+                          <i class="fa fa-star"></i></div>                         
+                        </div>`
+
+                        $('#blog_rating').append( `${rating}`);
+                    }
+                    
+                    // $(`#like${id}`).addClass(`bg-light-danger btn-text-danger`);
+                    // $(`#${id}total`).text(`${response.data}`);
+                }
+            },
+        })
+    })
 })

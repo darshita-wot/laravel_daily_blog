@@ -134,7 +134,9 @@ class BlogController extends Controller
     }
 
     public function singleBlog(string $id){
-        $blog = $this->repo->singleBlog($id);
-        return view('singleBlog',compact('blog'));
+        $blog_data = $this->repo->singleBlog($id);
+        $blog = $blog_data['blog_data'];
+        $rating = $blog_data['averageRating'];
+        return view('singleBlog',compact('blog','rating'));
     }
 }

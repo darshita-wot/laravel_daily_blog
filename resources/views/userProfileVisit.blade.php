@@ -52,6 +52,9 @@
                     <div class="progress-bar bg-danger" role="progressbar" style="width: 65%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                 </div> -->
             </div>
+            <span class="text-dark mr-2 font-size-lg font-weight-bolder pb-3">
+                    User Rating
+                </span>
             <div class="d-flex" id="user_rating">
             @for ($i = 1 ; $i <= floor($rating); $i++)
             <div  class="d-flex flex-row  my-5">

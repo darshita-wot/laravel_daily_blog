@@ -24,4 +24,16 @@ class RatingController extends Controller
             return response()->json(['failed' => $e->getMessage()]);
         }
     }
+
+    public function rateBlog()
+    {
+        try{
+            $rating = $this->repo->rateBlog();
+           
+                return response()->json(['status'=>'success','data' => $rating]);
+           
+        }catch(Exception $e){
+            return response()->json(['failed' => $e->getMessage()]);
+        }
+    }
 }

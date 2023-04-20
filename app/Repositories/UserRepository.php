@@ -189,9 +189,11 @@ class UserRepository implements UserContracts
     }
 
     public function userProfileView(string $id)
-    {
-        $user = User::find($id);
-        $apiReturnData['user_data'] = $user->with('counts')->withCount('counts')->first();
+    {  
+        $user = User::with('counts')->withCount('counts')->find($id);
+        $apiReturnData['user_data'] = $user;
+        // $user->with('counts')->withCount('counts')->get();
+        Log::info('user found',[ $user]);
         $apiReturnData['averageRating'] = $user->ratings()->avg('rating');
         return $apiReturnData;
     }

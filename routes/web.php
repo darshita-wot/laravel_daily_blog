@@ -90,6 +90,8 @@ Route::post('followuser',[CountController::class,'followUser']);
 
 Route::post('/rateuser',[RatingController::class,'rateUser']);
 
+Route::post('/rateblog',[RatingController::class,'rateBlog']);
+
 });
 
 Route::group(['middleware' => ['auth','permission:delete-blog-posts']],function(){
