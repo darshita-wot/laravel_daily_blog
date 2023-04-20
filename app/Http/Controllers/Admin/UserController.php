@@ -16,6 +16,7 @@ class UserController extends Controller
     {
         $this->request = $request;
         $this->repo = $userContracts;
+        $this->middleware(['role:admin']);
     }
 
     public function userList()
