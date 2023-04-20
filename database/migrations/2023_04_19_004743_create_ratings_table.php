@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->morphs('ratingable');
+            $table->morphs('ratable');
             $table->smallInteger('rating');
             $table->timestamps();
 

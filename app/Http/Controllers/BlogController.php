@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
+use function Symfony\Component\HttpFoundation\isEmpty;
+
 class BlogController extends Controller
 {
     public function __construct(Request $request, BlogContracts $blogContracts)

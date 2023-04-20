@@ -7,7 +7,7 @@
         
         
         <p>A new comment has been posted on your blog post:</p>
-        <p>Author: {{ $user_name }}</p>
+        <p>Author: {{ $name }}</p>
         <p>Comment: {{ $text }}</p>
         <a href="http://localhost:8000/login">Click here to login</a>
         <p>Thank You!</p>

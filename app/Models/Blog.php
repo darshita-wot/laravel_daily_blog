@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Rating;
 use App\Models\Tag;
 use App\Models\User;
+use App\Traits\Ratable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Log;
 
 class Blog extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory,SoftDeletes,Ratable;
 
     protected $fillable = [
         'user_id',
@@ -63,8 +64,4 @@ class Blog extends Model
         return $this->morphMany(Count::class,'countable');
     }
 
-    public function ratings(): MorphMany
-    {
-        return $this->morphMany(Rating::class,'ratingable');
-    }
 }

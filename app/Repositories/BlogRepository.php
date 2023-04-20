@@ -132,6 +132,7 @@ class BlogRepository implements BlogContracts
         }])->find($id);
         $apiReturnData['blog_data'] = $blog;
         Log::info('single blog',[$blog]);
+        Log::info('rating',[$blog->ratings()->avg('rating')]);
         $apiReturnData['averageRating'] = $blog->ratings()->avg('rating');
         return $apiReturnData;
     }

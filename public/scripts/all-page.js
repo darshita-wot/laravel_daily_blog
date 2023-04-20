@@ -89,7 +89,7 @@ $(document).ready(function () {
                     for(i=1;i<=star;i++){
                         let rating = `<div  class="d-flex flex-row  my-5">
                         <div class="fa-item col-md-3 col-sm-4">
-                          <i class="fa fa-star"></i></div>                         
+                          <i class="fa fa-star" style="color:#F7D060;"></i></div>                         
                         </div>`
 
                         $('#user_rating').append( `${rating}`);

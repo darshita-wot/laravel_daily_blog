@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Blog;
 use App\Models\Tag;
+use App\Traits\Ratable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -18,7 +19,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles,SoftDeletes,Ratable;
 
     /**
      * The attributes that are mass assignable.
@@ -57,24 +58,24 @@ class User extends Authenticatable
 
         parent::boot();
 
-        static::created(function(){
-            Log::info('NEW USER CREATED');
+        static::created(function($user){
+            Log::info('NEW USER CREATED - ',[$user->name]);
         });
 
-        static::updating(function(){
-            Log::info('USER UPDATING');
+        static::updating(function($user){
+            Log::info('USER UPDATING',[$user->name]);
         });
 
-        static::updated(function(){
-            Log::info('USER UPDATED');
+        static::updated(function($user){
+            Log::info('USER UPDATED',[$user->name]);
         });
         
-        static::saved(function(){
-            Log::info('USER INFO SAVED');
+        static::saved(function($user){
+            Log::info('USER INFO SAVED',[$user->name]);
         });
 
-        static::deleted(function(){
-            Log::info('USER DELETED');
+        static::deleted(function($user){
+            Log::info('USER DELETED',[$user->name]);
         });
     }
 
@@ -93,8 +94,4 @@ class User extends Authenticatable
         return $this->morphMany(Count::class,'countable');
     }
 
-    public function ratings(): MorphMany
-    {
-        return $this->morphMany(Rating::class,'ratingable');
-    }
 }
