@@ -95,7 +95,7 @@
 												<div class="m-1" id="allComments">
 											@foreach($blog->comments as $comment)
 												<div class="alert bg-light-secondary border p-3">
-												<h6>{{$comment->user_name}}</h6>
+												<h6>{{$comment->user_id}}</h6>
 											    <p class="d-inline m-2">{{$comment->text}}</p>
 												</div>
 											@endforeach

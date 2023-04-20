@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Blog;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,13 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table) {
             $table->id();
+            $table->morphs('likable');
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
-            $table->morphs('commentable');
-            $table->string('text');
-            $table->integer('blog_owner_id');
-            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('likes');
     }
 };

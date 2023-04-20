@@ -58,8 +58,8 @@
 <!-- 24 -->
 </button>
              @php
-             $containsUser = $blog->counts->contains(function ($count, $key) {
-                 return $count->user_id === Auth::user()->id;
+             $containsUser = $blog->likes->contains(function ($like, $key) {
+                 return $like->user_id === Auth::user()->id;
              });
              @endphp
                 <!-- bg-hover-light-danger btn-hover-text-danger -->
@@ -78,8 +78,8 @@
     </g>
 </svg><!--end::Svg Icon--></span>                   <span id="{{$blog->id}}total"> 
     <!-- 75 -->
-    @if($blog->counts_count != 0)
- {{$blog->counts_count}}
+    @if($blog->likes_count != 0)
+ {{$blog->likes_count}}
 @endif 
  </span>
                 </button>

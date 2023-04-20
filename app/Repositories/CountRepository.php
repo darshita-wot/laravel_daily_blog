@@ -21,16 +21,31 @@ Class CountRepository implements CountContracts
      public function setLike()
     {
         $blog = Blog::find($this->request->id);
-        $like = $blog->counts()->create([
-            'user_id' => Auth::user()->id,
-            'total' => 1
-        ]);
+        
+        $like = $blog->likes()->updateOrCreate(
+            ['user_id' => Auth::user()->id],
+        );
         Log::info('like added',[$like]);
 
-        $like_count = $blog->counts()
-             ->whereHasMorph('countable', [Blog::class], function($query) {
-            $query->where('countable_id',$this->request->id);
-       })->withCount('countable')
+        $like_count = $blog->likes()
+             ->whereHasMorph('likable', [Blog::class], function($query) {
+            $query->where('likable_id',$this->request->id);
+       })->withCount('likable')
+       ->count();
+        
+        return $like_count;
+    }
+
+    public function disLikeBlog()
+    {
+        $blog = Blog::find($this->request->id);
+        Log::info('dislike blog',[$blog]);
+        $like = $blog->likes()->where('user_id',Auth::user()->id)->delete();
+
+        $like_count = $blog->likes()
+             ->whereHasMorph('likable', [Blog::class], function($query) {
+            $query->where('likable_id',$this->request->id);
+       })->withCount('likable')
        ->count();
         
         return $like_count;
@@ -39,20 +54,32 @@ Class CountRepository implements CountContracts
     public function followUser()
     {
         $user = User::find($this->request->id);
-        $follow = $user->counts()->create([
-            'user_id' => Auth::user()->id,
-            'total' => 1
-        ]);
+        $follow = $user->follows()->updateOrCreate(
+            ['user_id' => Auth::user()->id],
+        );
         Log::info('follow added',[$follow]);
 
-        $follower_count = $user->counts()
-        ->whereHasMorph('countable', [User::class], function($query) {
-          $query->where('countable_id',$this->request->id);
-          })->withCount('countable')
+        $follower_count = $user->follows()
+        ->whereHasMorph('followable', [User::class], function($query) {
+          $query->where('followable_id',$this->request->id);
+          })->withCount('followable')
           ->count();
 
           return $follower_count;
     }
 
-    
+    public function unfollowUser()
+    {
+        $user = User::find($this->request->id);
+        $follow = $user->follows()->where('user_id',Auth::user()->id)->delete();
+        Log::info('follow removed',[$follow]);
+
+        $follower_count = $user->follows()
+        ->whereHasMorph('followable', [User::class], function($query) {
+          $query->where('followable_id',$this->request->id);
+          })->withCount('followable')
+          ->count();
+
+          return $follower_count;
+    }
 }

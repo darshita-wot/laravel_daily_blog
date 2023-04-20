@@ -83,10 +83,12 @@ Route::post('/updateblog',[BlogController::class,'updateBlog']);
 Route::get('/singleblog/{id}',[BlogController::class,'singleBlog']);
 
 Route::post('/setlike',[CountController::class,'setLike']);
+Route::post('/dislike-blog',[CountController::class,'disLikeBlog']);
 
 Route::post('/blog/comment/{blog_id}',[CommentController::class,'addComment']);
 
-Route::post('followuser',[CountController::class,'followUser']);
+Route::post('/followuser',[CountController::class,'followUser']);
+Route::post('/unfollow-user',[CountController::class,'unfollowUser']);
 
 Route::post('/rateuser',[RatingController::class,'rateUser']);
 

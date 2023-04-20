@@ -25,10 +25,33 @@ class CountController extends Controller
         }
     }
 
+    public function disLikeBlog()
+    {
+        try{
+            $total_like = $this->repo->disLikeBlog();
+           
+                return response()->json(['status'=>'success','data' => $total_like]);
+           
+        }catch(Exception $e){
+            return response()->json(['failed' => $e->getMessage()]);
+        }
+    }
     public function followUser()
     {
         try{
             $total_followers = $this->repo->followUser();
+           
+                return response()->json(['status'=>'success','data' => $total_followers]);
+           
+        }catch(Exception $e){
+            return response()->json(['failed' => $e->getMessage()]);
+        }
+    }
+
+    public function unfollowUser()
+    {
+        try{
+            $total_followers = $this->repo->unfollowUser();
            
                 return response()->json(['status'=>'success','data' => $total_followers]);
            

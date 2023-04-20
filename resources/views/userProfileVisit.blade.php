@@ -30,8 +30,8 @@
                 </span>
             </div>
             @php
-             $containsUser = $user->counts->contains(function ($count, $key) {
-                 return $count->user_id === Auth::user()->id;
+             $containsUser = $user->follows->contains(function ($follow, $key) {
+                 return $follow->user_id === Auth::user()->id;
              });
              @endphp
             <span id="follow{{$user->id}}" class="follow label label-xl  label-pill label-inline mr-2

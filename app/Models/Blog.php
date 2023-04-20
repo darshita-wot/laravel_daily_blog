@@ -6,6 +6,8 @@ use App\Models\Comment;
 use App\Models\Rating;
 use App\Models\Tag;
 use App\Models\User;
+use App\Traits\Commentable;
+use App\Traits\Likable;
 use App\Traits\Ratable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +20,7 @@ use Illuminate\Support\Facades\Log;
 
 class Blog extends Model
 {
-    use HasFactory,SoftDeletes,Ratable;
+    use HasFactory,SoftDeletes,Ratable,Likable,Commentable;
 
     protected $fillable = [
         'user_id',
@@ -32,20 +34,20 @@ class Blog extends Model
 
         parent::boot();
 
-        static::created(function(){
-            Log::info('NEW BLOG CREATED');
+        static::created(function($blog){
+            Log::info('NEW BLOG CREATED',[$blog->title]);
         });
 
-        static::updated(function(){
-            Log::info('BLOG UPDATED');
+        static::updated(function($blog){
+            Log::info('BLOG UPDATED',[$blog->title]);
         });
         
-        static::saved(function(){
-            Log::info('BLOG SAVED');
+        static::saved(function($blog){
+            Log::info('BLOG SAVED',[$blog->title]);
         });
 
-        static::deleted(function(){
-            Log::info('BLOG DELETED');
+        static::deleted(function($blog){
+            Log::info('BLOG DELETED',[$blog->title]);
         });
     }
     
@@ -54,14 +56,9 @@ class Blog extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function comments(): HasMany
-    {
-        return $this->hasMany(Comment::class,'blog_id','id');
-    }
-    
-    public function counts(): MorphMany
-    {
-        return $this->morphMany(Count::class,'countable');
-    }
+    // public function comments(): HasMany
+    // {
+    //     return $this->hasMany(Comment::class,'blog_id','id');
+    // }
 
 }

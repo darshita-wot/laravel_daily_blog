@@ -190,7 +190,7 @@ class UserRepository implements UserContracts
 
     public function userProfileView(string $id)
     {  
-        $user = User::with('counts')->withCount('counts')->find($id);
+        $user = User::with('follows')->withCount('follows')->find($id);
         $apiReturnData['user_data'] = $user;
         // $user->with('counts')->withCount('counts')->get();
         Log::info('user found',[ $user]);
@@ -218,11 +218,10 @@ class UserRepository implements UserContracts
             $id = Auth::id();
             
             $total_records = Comment::where('blog_owner_id', $id)->where('status', 0)->count();
-
            
             $comments = Comment::join(
                 'blogs',
-                'comments.blog_id',
+                'comments.commentable_id',
                 '=',
                 'blogs.id'
             )->select('comments.id', 'comments.text', 'blogs.title')->where('blog_owner_id', $id)->where('status', 0)->skip($skip)->take($perpage)->get();

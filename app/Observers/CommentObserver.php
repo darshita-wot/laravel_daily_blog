@@ -14,11 +14,13 @@ class CommentObserver
      */
     public function created(Comment $comment): void
     {
-         // Get the post owner's email address
-         $email = $comment->blog->user->email;
-         Log::info('inside comment observer',[$email]);
+        // Get the post owner's email address
+        $blog = $comment->commentable;
+        $user = $blog->user;
+        $email = $user->email;
+        Log::info('inside comment observer', [$email]);
 
-         Mail::to($email)->send(new NewCommentNotification($comment));
+        Mail::to($email)->send(new NewCommentNotification($comment));
     }
 
     /**

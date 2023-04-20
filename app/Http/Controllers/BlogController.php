@@ -139,6 +139,7 @@ class BlogController extends Controller
         $blog_data = $this->repo->singleBlog($id);
         $blog = $blog_data['blog_data'];
         $rating = $blog_data['averageRating'];
-        return view('singleBlog',compact('blog','rating'));
+        $authors = $blog_data['comment_data'];
+        return view('singleBlog',compact('blog','rating','authors'));
     }
 }

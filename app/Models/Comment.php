@@ -13,8 +13,7 @@ class Comment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_name',
-        'blog_id',
+        'user_id',
         'blog_owner_id',
         'text',
     ];
@@ -38,9 +37,14 @@ class Comment extends Model
         
     }
     
-    public function blog():BelongsTo
+    // public function blog():BelongsTo
+    // {
+    //     return $this->belongsTo(Blog::class,'blog_id','id');
+    // }
+
+    public function commentable()
     {
-        return $this->belongsTo(Blog::class,'blog_id','id');
+        return $this->morphTo();
     }
         
 }

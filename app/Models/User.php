@@ -5,6 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Blog;
 use App\Models\Tag;
+use App\Traits\Commentable;
+use App\Traits\Followable;
 use App\Traits\Ratable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -19,7 +21,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles,SoftDeletes,Ratable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles,SoftDeletes,Ratable,Followable,Commentable;
 
     /**
      * The attributes that are mass assignable.
@@ -64,10 +66,22 @@ class User extends Authenticatable
 
         static::updating(function($user){
             Log::info('USER UPDATING',[$user->name]);
+
+            $changes = $user->getDirty();
+            foreach ($changes as $attribute => $value) {
+                Log::info("User {$user->id}: {$attribute} changed from '{$user->getOriginal($attribute)}' to '{$value}'");
+            }
+           
+           
         });
 
         static::updated(function($user){
             Log::info('USER UPDATED',[$user->name]);
+            // $oldData = $user->getOriginal();
+            // $newData = $user->getAttributes();
+            // Log::info('Old User - ',[$oldData['name']]);
+            // Log::info('Old User - ',[$oldData]);
+            // Log::info('New User - ',[$newData]);
         });
         
         static::saved(function($user){
@@ -87,11 +101,6 @@ class User extends Authenticatable
     public function tags(): HasMany
     {
         return $this->hasMany(Tag::class);
-    }
-
-    public function counts(): MorphMany
-    {
-        return $this->morphMany(Count::class,'countable');
     }
 
 }

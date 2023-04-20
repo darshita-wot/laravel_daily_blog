@@ -33,6 +33,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status == 'success') {
                     $(`#like${id}`).addClass(`bg-light-danger btn-text-danger`);
+                    $(`#like${id}`).removeClass('likeBlog');
                     $(`#${id}total`).text(`${response.data}`);
                 }
             },
@@ -40,13 +41,60 @@ $(document).ready(function () {
        
     })
 
+    $(document).on('click','.bg-light-danger.btn-text-danger',function(){
+        let blog_id = $(this).attr('id');
+        let id = blog_id.substring(4, blog_id.length);
+        console.log(id);
+        $.ajax({
+            url: '/dislike-blog',
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                    "content"
+                ),
+            },
+            type: "POST",
+            data:{id:id},
+            dataType: "json",
+            success: function (response) {
+                if (response.status == 'success') {
+                    $(`#like${id}`).removeClass(`bg-light-danger btn-text-danger`);
+                    $(`#like${id}`).addClass('likeBlog');
+                    $(`#${id}total`).text(`${response.data}`);
+                }
+            },
+        })
+    });
+
+    $(document).on('click','.label-success',function(e){
+        let user_id = $(this).attr('id');
+        let id = user_id.substring(6, user_id.length);
+        console.log(id);
+        
+            $.ajax({
+                url: '/unfollow-user',
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                type: "POST",
+                data:{id:id},
+                dataType: "json",
+                success: function (response) {
+                    if (response.status == 'success') {
+                        $(`#follow${id}`).removeClass('label-success').addClass(`label-info follow`);
+                        $('.total-followers').text(`${response.data} Followers`)
+                        $(`#follow${id}`).text(`+ Follow`);
+                    }   
+                },
+            })
+    });
+
     $(document).on('click','.follow',function(e){
         let user_id = $(this).attr('id');
         let id = user_id.substring(6, user_id.length);
         console.log(id);
-        if($(this).hasClass('label-success')){
-            e.preventDefault();
-        }else{
+        
             $.ajax({
                 url: '/followuser',
                 headers: {
@@ -59,13 +107,13 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (response) {
                     if (response.status == 'success') {
-                        $(`#follow${id}`).removeClass('label-info').addClass(`label-success`);
+                        $(`#follow${id}`).removeClass('label-info follow').addClass(`label-success`);
                         $('.total-followers').text(`${response.data} Followers`)
                         $(`#follow${id}`).text(`Following`);
                     }
                 },
             })
-        }
+        
        
     })
 

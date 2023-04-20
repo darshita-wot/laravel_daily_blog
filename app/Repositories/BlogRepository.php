@@ -69,7 +69,7 @@ class BlogRepository implements BlogContracts
         $id = Session('id');
         $user = User::find($id);
         $user_blogs = $user->with('blogs', 'tags')->where('id', $id)->first();
-        $counts = Blog::withCount('counts','comments')->where('user_id', Session('id'))->whereNull('deleted_at')->get();
+        $counts = Blog::withCount('likes','comments')->where('user_id', Session('id'))->whereNull('deleted_at')->get();
         Log::info('user blogs',[$user_blogs]);
         Log::info('counts',[$counts]);
         return $user_blogs;
@@ -78,9 +78,11 @@ class BlogRepository implements BlogContracts
     public function allBlogs()
     { 
         // $blogs = Blog::with(['counts','user'])->withCount('counts','comments')->where('user_id', '!=', Session('id'))->whereNull('deleted_at')->get();
-        $blogs = Blog::where('user_id', '!=', Session('id'))->whereNull('deleted_at')->with(['user','counts' => function($query){
+        $blogs = Blog::whereNull('deleted_at')->with(['user','likes' => function($query){
             $query->where('user_id',Session('id'));
-        }])->withCount('counts','comments')->paginate(2);
+        }])->withCount(['likes','comments' => function($query){
+            $query->where('status',1);
+        }])->latest()->paginate(2);
         
         return $blogs;
     }
@@ -128,12 +130,14 @@ class BlogRepository implements BlogContracts
     public function singleBlog(string $id){
 
         $blog = Blog::with(['user','comments' => function($query){
-            $query->select('id','blog_id','user_name','text')->where('status',1);
+            $query->select('id','commentable_id','user_id','text')->where('status',1);
         }])->find($id);
+        $apiReturnData['comment_data'] = User::join('comments', 'comments.user_id', '=', 'users.id')->select('users.*')->where('commentable_id',$id)->get();
+        Log::info('blog_id ',[$apiReturnData['comment_data']]);
         $apiReturnData['blog_data'] = $blog;
         Log::info('single blog',[$blog]);
         Log::info('rating',[$blog->ratings()->avg('rating')]);
         $apiReturnData['averageRating'] = $blog->ratings()->avg('rating');
         return $apiReturnData;
-    }
+    } 
 }
