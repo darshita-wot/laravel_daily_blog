@@ -19,7 +19,8 @@
 
             <!--begin::Info-->
             <div class="d-flex flex-column flex-grow-1">
-                <a href="userprofileview/{{$blog->user->id}}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">{{$blog->user->name }}</a>
+            <!-- href="userprofileview/{{$blog->user->id}}" -->
+                <a  class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">{{$blog->user->name }}</a>
                 <span class="text-muted font-weight-bold">By {{$blog->user->name}} on {{$blog->user->created_at->format('d/m/Y')}} </span>
             </div>
             <!--end::Info-->

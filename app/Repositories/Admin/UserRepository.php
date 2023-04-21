@@ -130,18 +130,27 @@ class UserRepository implements UserContracts
 
             $permission_names = [];
             foreach($users as $user) {
-              $permissions =   $user->getDirectPermissions();
-              Log::info('permissions -',[$permissions]);
+              $permissions =   $user->permissions;
+              $permission_count = $user->permissions->count();
+              Log::info('permissions count -',[ $permission_count]);
+              $counter = 0;
               foreach($permissions as $permission){
+                $counter++;
                     Log::info('permission name -',[$permission->name]);
                     Log::info('model_id -',[$permission->pivot->model_id]);
                     array_push($permission_names,$permission->name);
-                    // $permission_names = $permission->name;
+                   
+                    if($counter ==  $permission_count)
+                    {
+                        $user->permission_names = $permission_names;
+                        $permission_names = [];
+                       
+                    }
                     $user->model_id = $permission->pivot->model_id;
                  
+                    
               }
-              $user->permission_names = $permission_names;
-            //   Log::info('permission name -',[$permissions->pluck('name')]);
+            
             
                 
             }
