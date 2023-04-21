@@ -226,6 +226,15 @@ License: You must have a valid license purchased only from themeforest(the above
 										</a>
 										
 									</li>
+
+									<li class="menu-item 
+									@if(Request::is('permissions')) menu-item-open menu-item-here
+									@endif"  aria-haspopup="true">
+										<a href="/permissions" class="menu-link ">
+											<span class="menu-text">Permissions</span>
+										</a>
+										
+									</li>
 									@endrole
 								</ul>
 								<!--end::Header Nav-->

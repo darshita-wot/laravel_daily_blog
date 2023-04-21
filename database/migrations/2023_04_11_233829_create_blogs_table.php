@@ -17,13 +17,12 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->string('title');
             $table->longText('content');
-            $table->json('tags')->nullable();
+            $table->string('tags')->nullable();
             $table->string('image');
             $table->softDeletes();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

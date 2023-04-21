@@ -98,4 +98,26 @@ class UserController extends Controller
             return response()->json(['failed' => $e->getMessage()]);
         }
     }
+
+    public function userPermissionList(){
+        $data = $this->repo->userPermissionList();
+        return response()->json([
+            'status' => 'success',
+            'data' => $data['data'],
+            "meta" => $data['meta']
+        ]);
+    }
+
+    public function changeBlogPermission(){
+        try{
+            $status = $this->repo->changeBlogPermission();
+            if($status){
+                return response()->json(['status'=>'success','data' => 'User permission changed']);
+            }else{
+                return response()->json(['status'=>'error','data' => 'User Permission removed!']);
+            }
+        }catch(Exception $e){
+            return response()->json(['failed' => $e->getMessage()]);
+        }
+    }
 }

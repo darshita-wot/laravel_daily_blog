@@ -9,9 +9,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Traits\Ratable;
 
 class RatingRepository implements RatingContracts
 {
+    use Ratable;
     private $apiReturnData = [];
 
     public function __construct(Request $request)
@@ -23,10 +25,10 @@ class RatingRepository implements RatingContracts
     {
         $user = User::find($this->request->rated_user_id);
 
-        $user->ratings()->updateOrCreate(
-            ['user_id' => Auth::user()->id],
-            ['rating' => $this->request->rating]
-        );
+        $data['user_id'] = Auth::user()->id;
+        $data['rating'] = $this->request->rating;
+
+        $this->saveRating($user,$data);
 
         $averageRating = $user->ratings()->avg('rating');
 
@@ -38,10 +40,10 @@ class RatingRepository implements RatingContracts
     {
         $blog = Blog::find($this->request->rated_blog_id);
 
-        $blog->ratings()->updateOrCreate(
-            ['user_id' => Auth::user()->id],
-            ['rating' => $this->request->rating]
-        );
+        $data['user_id'] = Auth::user()->id;
+        $data['rating'] = $this->request->rating;
+
+        $this->saveRating($blog,$data);
 
         $averageRating = $blog->ratings()->avg('rating');
 

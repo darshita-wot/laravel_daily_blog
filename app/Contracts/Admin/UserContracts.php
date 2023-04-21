@@ -13,4 +13,8 @@ interface UserContracts
     public function deleteUser();
 
     public function changeUserStatus();
+
+    public function userPermissionList();
+
+    public function changeBlogPermission();
 }

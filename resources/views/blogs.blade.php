@@ -11,9 +11,11 @@
     <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_1">My Blog</a>
     </li>
+    @can('create-blog-posts')
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_2">Write Blog</a>
     </li>
+    @endcan
     <li class="nav-item">
         <a class="nav-link editBlogTab" data-toggle="tab" href="#kt_tab_pane_3">Edit Blog</a>
     </li>
@@ -60,12 +62,13 @@
                                
                                <button id='blog-no{{$blog->id}}'  class="btn btn-outline-secondary font-weight-bold readMore">Read more</button>
                                
-                               @role('admin')
+                               @can('delete-blog-posts')
 							      <button  class="deleteBlog btn btn-sm btn-primary ml-3" id='deleteBlog{{$blog->id}}'>Delete</button>
-                                @endrole
+                                @endcan
                                   <!-- href="/blog/edit/{{$blog->id}}" -->
+                                  @can('edit-blog-posts')
 									<button  id='editBlog{{$blog->id}}' class="editBlog m-2 btn btn-success"> Edit </button>
-									
+								 @endcan
                            </div>
                        </div>
            </div>

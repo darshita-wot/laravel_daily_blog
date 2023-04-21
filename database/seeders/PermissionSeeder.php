@@ -31,8 +31,7 @@ class PermissionSeeder extends Seeder
               'edit-blog-posts','delete-blog-posts','create-tags','edit-tags','delete-tags']);
 
         $role2 = Role::findByName('user');
-        $role2->givePermissionTo(['create-blog-posts','edit-blog-posts',
-                                  'create-tags','edit-tags','delete-tags']);
+        $role2->givePermissionTo(['create-tags','edit-tags','delete-tags']);
 
     }
 }

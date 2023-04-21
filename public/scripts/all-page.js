@@ -299,6 +299,7 @@ $(document).ready(function () {
                     $(document).find('.nav-tabs.nav-tabs-line').children().first().find('a').addClass('active');
                     $('#myTabContent').children().removeClass('active show');
                     $('#kt_tab_pane_1').addClass('active show');
+                    window.location.reload();
                 }
             },
         })

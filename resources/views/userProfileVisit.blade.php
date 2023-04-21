@@ -26,7 +26,7 @@
                     Joined On: {{Str::substr($user->created_at, 0, 10)}}
                 </span>
                 <span class="total-followers text font-weight-bold font-size-lg mt-2">
-                    {{$user->counts_count}} Followers
+                    {{$user->follows_count}} Followers
                 </span>
             </div>
             @php

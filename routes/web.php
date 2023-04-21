@@ -60,11 +60,18 @@ Route::get('/users',function(){
     return view('admin/users');
 });
 
+Route::post('/user-permission-list',[App\Http\Controllers\Admin\UserController::class,'userPermissionList']);
 Route::post('/userlist',[App\Http\Controllers\Admin\UserController::class,'userList']);
 Route::get('/edituser',[App\Http\Controllers\Admin\UserController::class,'editUser']);
 Route::post('/updateuser',[App\Http\Controllers\Admin\UserController::class,'updateUser']);
 Route::get('/userdelete',[App\Http\Controllers\Admin\UserController::class,'deleteUser']);
 Route::post('/userstatus',[App\Http\Controllers\Admin\UserController::class,'changeUserStatus']);
+
+Route::get('/permissions',function(){
+    return view('admin/permissions');
+});
+Route::post('/blog-permission',[App\Http\Controllers\Admin\UserController::class,'changeBlogPermission']);
+
 
 });
 

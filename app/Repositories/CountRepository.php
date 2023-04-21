@@ -5,12 +5,15 @@ use App\Contracts\CountContracts;
 use App\Models\Blog;
 use App\Models\Count;
 use App\Models\User;
+use App\Traits\Followable;
+use App\Traits\Likable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 Class CountRepository implements CountContracts
 {
+    use Likable,Followable;
     private $apiReturnData = [];
 
     public function __construct(Request $request)
@@ -22,11 +25,8 @@ Class CountRepository implements CountContracts
     {
         $blog = Blog::find($this->request->id);
         
-        $like = $blog->likes()->updateOrCreate(
-            ['user_id' => Auth::user()->id],
-        );
-        Log::info('like added',[$like]);
-
+        $this->saveLike($blog);
+        
         $like_count = $blog->likes()
              ->whereHasMorph('likable', [Blog::class], function($query) {
             $query->where('likable_id',$this->request->id);
@@ -54,10 +54,8 @@ Class CountRepository implements CountContracts
     public function followUser()
     {
         $user = User::find($this->request->id);
-        $follow = $user->follows()->updateOrCreate(
-            ['user_id' => Auth::user()->id],
-        );
-        Log::info('follow added',[$follow]);
+
+        $this->addFollow($user);
 
         $follower_count = $user->follows()
         ->whereHasMorph('followable', [User::class], function($query) {

@@ -83,13 +83,13 @@
 @endif 
  </span>
                 </button>
-                @role('admin')
+         
+                @if(auth()->id() == $blog->user_id && auth()->user()->hasPermissionTo('delete-blog-posts') || auth()->user()->hasRole('admin'))
                 <button class="deleteBlog btn btn-sm btn-primary ml-3" id="deleteBlog{{$blog->id}}">Delete</button>
-                @endrole
+                @endif
             </div>
             <!--end::Action-->
         <!--end::Bottom-->
-
         <!--begin::Separator-->
         <!-- <div class="separator separator-solid mt-2 mb-4"></div> -->
         <!--end::Separator-->
