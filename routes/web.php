@@ -101,6 +101,9 @@ Route::post('/rateuser',[RatingController::class,'rateUser']);
 
 Route::post('/rateblog',[RatingController::class,'rateBlog']);
 
+Route::post('/changepassword',[UserController::class,'changePassword']);
+Route::post('/delete-user-account',[UserController::class,'deleteUserAccount']);
+
 });
 
 Route::group(['middleware' => ['auth','permission:delete-blog-posts']],function(){

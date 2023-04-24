@@ -421,4 +421,10 @@ jQuery(document).ready(function() {
         });
     })
 
+    $(document).on('click', '#clear_tag', function () {
+        $('#kt_datatable_search_query').val('');
+        const myDataTable = $("#kt_datatable").KTDatatable();
+        myDataTable.search('');
+        myDataTable.sort('name');    
+    })
 });

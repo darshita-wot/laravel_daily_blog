@@ -1,4 +1,7 @@
 @extends('layout/home')
+@section('title')
+<title>Tags</title>
+@endsection
 @section('token')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection

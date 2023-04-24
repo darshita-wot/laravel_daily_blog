@@ -167,7 +167,7 @@ class UserRepository implements UserContracts
             return $this->apiReturnData;
         }
     }
-
+  
     public function changeBlogPermission()
     {
         $user = User::find($this->request->id);

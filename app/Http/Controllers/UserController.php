@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\UserContracts;
+use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -17,43 +18,30 @@ class UserController extends Controller
         $this->repo = $userContracts;
     }
 
-    public function userRegistration()
+    public function userRegistration(UserStoreRequest $request)
     {
         try {
-            $validator = Validator::make(
-                $this->request->all(),
-                [
-                    'fullname' => 'string|required|min:5',
-                    'email' => 'string|email|required|max:100|unique:users',
-                    'password' => 'string|required|min:5',
-                    'mobile_no' => 'required|unique:users',
-                    'birthday_date' => 'required',
-
-                ],
-                [
-                    'fullname.string' => "Please enter valid Name",
-                    'email.string' => "Please enter valid Email",
-                    'password.string' => "Please enter valid Password",
-                ]
-            );
-
-            if (!$validator->passes()) {
-                // Log::info('data',[$validator->errors()]);
-                return response()->json(['status' => 'error', 'data' => $validator->errors()]);
-            } else {
+            // $validated = $request->validated();
+            // Log::info('validated - ',[$validated]);
+         
+            // if (!$validator->passes()) {
+            //     // Log::info('data',[$validator->errors()]);
+            //     return response()->json(['status' => 'error', 'data' => $validator->errors()]);
+            // } else {
                 
-                $data = $this->repo->userRegistration();
+                $data = $this->repo->userRegistration($request);
                 if (!empty($data)) {
                     return response()->json(['status' => 'success', 'data' => 'user added']);
                 } else {
                     return response()->json(['error' => 'Error in User registration']);
                 }
-            }
+            // }
         } catch (Exception $e) {
             return response()->json(['failed' => $e->getMessage()]);
         }
 
     }
+    
 
     public function userLogin()
     {
@@ -174,7 +162,7 @@ class UserController extends Controller
         // Log::info('user',[$user]);
         $user = $this->repo->getProfileView();
         if($user){
-            return view('user.userProfile',compact('user'));
+            return view('user.usersProfile',compact('user'));
         }
 
     }
@@ -219,6 +207,49 @@ class UserController extends Controller
             }
             
         }catch(Exception $e){
+            return response()->json(['failed' => $e->getMessage()]);
+        }
+    }
+
+    public function changePassword()
+    {
+        try {
+            $validator = Validator::make($this->request->all(), [
+                'password' => 'string|required|min:5|confirmed',
+            ], [
+                    'password.string' => "Please enter valid Password"
+                ]);
+
+            if (!$validator->passes()) {
+              
+                return response()->json(['status' => 'error', 'data' => $validator->errors()]);
+            } else {
+
+                $data = $this->repo->changePassword();
+
+                if ($data) {
+                    return response()->json(['status' => 'success', 'data' => 'password changed']);
+                }
+
+            }
+        } catch (Exception $e) {
+            return response()->json(['failed' => $e->getMessage()]);
+        }
+
+    }
+
+    public function deleteUserAccount()
+    {
+        try {
+            Log::info('delete id - ',[$this->request]);
+                $status = $this->repo->deleteUserAccount();
+
+                if ($status) {
+                    return response()->json(['status' => 'success', 'data' => 'Account deleted']);
+                }
+
+            }
+         catch (Exception $e) {
             return response()->json(['failed' => $e->getMessage()]);
         }
     }

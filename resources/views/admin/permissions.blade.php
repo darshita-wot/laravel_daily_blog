@@ -1,5 +1,7 @@
 @extends('layout/home')
-	
+@section('title')
+<title>User Permissions</title>
+@endsection
 @section('token')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -28,7 +30,12 @@
 																	<i class="flaticon2-search-1 text-muted"></i>
 																</span>
 															</div>
-														</div>														
+														</div>	
+														<div class="col-md-4 my-2 my-md-0">
+															<div class="d-flex align-items-center">
+															<button class="btn btn-success mr-5" id="clear_permission">Clear </button>
+														</div>
+													</div>													
 													</div>
 												</div>
 												

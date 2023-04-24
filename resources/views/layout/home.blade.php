@@ -16,7 +16,8 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!--begin::Head-->
 	<head><base href="">
 		<meta charset="utf-8" />
-		<title>Home</title>
+		<!-- <title>Home</title> -->
+		@yield('title')
 		@yield('token')
 		<meta name="description" content="Updates and statistics" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -33,6 +34,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--end::Global Theme Styles-->
 		<!--begin::Layout Themes(used by all pages)-->
 		<!--end::Layout Themes-->
+		<!-- <link rel="shortcut icon" href="{{asset('demo8/dist/assets/media/logos/logo-letter-8.png')}}" /> -->
 		<link rel="shortcut icon" href="{{asset('demo8/dist/assets/media/logos/favicon.ico')}}" />
 	</head>
 	<!--end::Head-->

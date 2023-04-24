@@ -1,4 +1,7 @@
 @extends('layout/home')
+@section('title')
+<title>{{ $blog->title }}</title>
+@endsection
 @section('token')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -31,6 +34,7 @@
 												
 											</div>
 											<div class="card-body ">
+                                                <h2 class="content">{{$blog->title}}</h2>
 												  <div class="photo w-50 mx-auto">
 												  <!-- <a data-fancybox='' data-caption='' href="" id="post_img">
                                                      <img src="" id="image" width="100%" height="100%" class="card-img-top rounded" alt="Error fetching image">
@@ -96,7 +100,7 @@
 												<div class="m-1" id="allComments">
 											@foreach($blog->comments as $comment)
 												<div class="alert bg-light-secondary border p-3">
-												<h6>{{$comment->user_id}}</h6>
+												<h6>{{$comment->name}}</h6>
 											    <p class="d-inline m-2">{{$comment->text}}</p>
 												</div>
 											@endforeach

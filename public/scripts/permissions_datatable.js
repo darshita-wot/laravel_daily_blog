@@ -61,6 +61,7 @@ $(document).ready(function(){
                 columns: [{
                         field: "id",
                         title: " No",
+                        sortable: false,
                         width: 100,
                         type: "number",
                         selector: false,
@@ -75,6 +76,7 @@ $(document).ready(function(){
                     },
                     {
                         field: 'create',
+                        sortable: false,
                         title: 'Create Blog',
                         
                         // callback function support for column rendering
@@ -94,7 +96,7 @@ $(document).ready(function(){
                             <div class="col-3">
                                 <span class="switch switch-primary">
                                     <label>
-                                        <input id='createpermission${row.id}' class='create-permission' ${row.permission_names.includes('create-blog-posts') ? 'checked' : ''} type="checkbox"  value='${row.status}' name="select"/>
+                                        <input id='createpermission${row.id}' class='create-permission' ${jQuery.inArray( 'create-blog-posts', row.permission_names ) == -1 ? '' : 'checked'} type="checkbox"  value='${row.status}' name="select"/>
                                         <span></span>
                                     </label>
                                 </span>
@@ -103,6 +105,7 @@ $(document).ready(function(){
                     },
                     {
                         field: 'edit',
+                        sortable: false,
                         title: 'Edit Blog',
                         
                         // callback function support for column rendering
@@ -122,7 +125,7 @@ $(document).ready(function(){
                             <div class="col-3">
                                 <span class="switch switch-primary">
                                     <label>
-                                        <input id='editpermission${row.id}' class='edit-permission' ${row.permission_names.includes('edit-blog-posts') ? 'checked' : ''} type="checkbox"  value='${row.status}' name="select"/>
+                                        <input id='editpermission${row.id}' class='edit-permission' ${jQuery.inArray( 'edit-blog-posts', row.permission_names ) == -1 ? '' : 'checked'} type="checkbox"  value='${row.status}' name="select"/>
                                         <span></span>
                                     </label>
                                 </span>
@@ -131,6 +134,7 @@ $(document).ready(function(){
                     },
                     {
                         field: 'delete',
+                        sortable: false,
                         title: 'Delete Blog',
                         
                         // callback function support for column rendering
@@ -150,7 +154,7 @@ $(document).ready(function(){
                             <div class="col-3">
                                 <span class="switch switch-primary">
                                     <label>
-                                        <input id='delpermission${row.id}' class='del-permission' ${row.permission_names.includes('delete-blog-posts') ? 'checked' : ''} type="checkbox"  value='${row.status}' name="select"/>
+                                        <input id='delpermission${row.id}' class='del-permission' ${jQuery.inArray( 'delete-blog-posts', row.permission_names ) == -1 ? '' : 'checked'} type="checkbox"  value='${row.status}' name="select"/>
                                         <span></span>
                                     </label>
                                 </span>
@@ -164,10 +168,7 @@ $(document).ready(function(){
     };
     permissions_datatable.table(); 
 
-    function givePermission()
-    {
-        
-    }
+
     $(document).on('click','.create-permission',function(){
         let user_id = $(this).attr('id');
         let id = user_id.substring(16,user_id.length);
@@ -189,7 +190,7 @@ $(document).ready(function(){
                 if(response.status == 'success'){
                     toastr.success(`${response.data}`)
                 }else{
-                    toastr.error(`${response.data}`);
+                    toastr.success(`${response.data}`);
                 }
             }
         })
@@ -216,7 +217,7 @@ $(document).ready(function(){
                 if(response.status == 'success'){
                     toastr.success(`${response.data}`)
                 }else{
-                    toastr.error(`${response.data}`);
+                    toastr.success(`${response.data}`);
                 }
             }
         })
@@ -243,9 +244,16 @@ $(document).ready(function(){
                 if(response.status == 'success'){
                     toastr.success(`${response.data}`)
                 }else{
-                    toastr.error(`${response.data}`);
+                    toastr.success(`${response.data}`);
                 }
             }
         })
+    })
+
+    $(document).on('click', '#clear_permission', function () {
+        $('#kt_datatable_search_query').val('');
+        const myDataTable = $("#kt_permissions_datatable").KTDatatable();
+        myDataTable.search('');
+        myDataTable.sort('name');    
     })
 });

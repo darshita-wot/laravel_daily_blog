@@ -229,50 +229,54 @@ var KTLogin = function () {
                         data : formData,
                         dataType: 'json',
                         success: function(response){
-                            
+                            alert('here');
                             if(response.status == 'success'){
                                 window.location.href = '/login';
                             }else{
-                                if (response.data.name) {
-                                    $("#fullname_error").html(
-                                        `${response.data.name}`
-                                    );
-                                } else {
-                                    $("#fullname_error").html("");
-                                }
-
-                                if (response.data.email) {
-                                    $("#email_error").html(
-                                        `${response.data.email}`
-                                    );
-                                } else {
-                                    $("#email_error").html("");
-                                }
-
-                                if (response.data.password) {
-                                    $("#password_error").html(
-                                        `${response.data.password}`
-                                    );
-                                } else {
-                                    $("#password_error").html("");
-                                }
-
-                                if (response.data.mobile_no) {
-                                    $("#mobileno_error").html(
-                                        `${response.data.mobile_no}`
-                                    );
-                                } else {
-                                    $("#mobileno_error").html("");
-                                }
-
-                                if (response.data.birthday_date) {
-                                    $("#birthdaydate_error").html(
-                                        `${response.data.birthday_date}`
-                                    );
-                                } else {
-                                    $("#birthdaydate_error").html("");
-                                }
+                                console.log('inside else');
                             }
+                        
+                            // else{
+                            //     if (response.data.name) {
+                            //         $("#fullname_error").html(
+                            //             `${response.data.name}`
+                            //         );
+                            //     } else {
+                            //         $("#fullname_error").html("");
+                            //     }
+
+                            //     if (response.errors.email) {
+                            //         $("#email_error").html(
+                            //             `${response.errors.email}`
+                            //         );
+                            //     } else {
+                            //         $("#email_error").html("");
+                            //     }
+
+                            //     if (response.data.password) {
+                            //         $("#password_error").html(
+                            //             `${response.data.password}`
+                            //         );
+                            //     } else {
+                            //         $("#password_error").html("");
+                            //     }
+
+                            //     if (response.data.mobile_no) {
+                            //         $("#mobileno_error").html(
+                            //             `${response.data.mobile_no}`
+                            //         );
+                            //     } else {
+                            //         $("#mobileno_error").html("");
+                            //     }
+
+                            //     if (response.data.birthday_date) {
+                            //         $("#birthdaydate_error").html(
+                            //             `${response.data.birthday_date}`
+                            //         );
+                            //     } else {
+                            //         $("#birthdaydate_error").html("");
+                            //     }
+                            // }
                         }
                     })
                 } else {

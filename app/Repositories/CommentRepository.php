@@ -36,6 +36,7 @@ class CommentRepository implements CommentContracts
         $blog = Blog::find($blog_id);
         $comment = $blog->comments()->create([
             'user_id' => Auth::id(),
+            'name' => Auth::user()->name,
             'blog_owner_id' => $this->request->blog_owner_id,
             'text' => $this->request->comment
         ]);

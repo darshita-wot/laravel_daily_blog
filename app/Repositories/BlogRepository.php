@@ -130,7 +130,7 @@ class BlogRepository implements BlogContracts
     public function singleBlog(string $id){
 
         $blog = Blog::with(['user','comments' => function($query){
-            $query->select('id','commentable_id','user_id','text')->where('status',1);
+            $query->select('id','name','commentable_id','user_id','text')->where('status',1);
         }])->find($id);
         $apiReturnData['comment_data'] = User::join('comments', 'comments.user_id', '=', 'users.id')->select('users.*')->where('commentable_id',$id)->get();
         Log::info('blog_id ',[$apiReturnData['comment_data']]);

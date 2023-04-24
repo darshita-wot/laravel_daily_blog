@@ -16,22 +16,23 @@ class Comment extends Model
         'user_id',
         'blog_owner_id',
         'text',
+        'name'
     ];
 
     public static function boot(){
 
         parent::boot();
 
-        static::created(function(){
-            Log::info('NEW COMMENT ADDED');
+        static::created(function($comment){
+            Log::info('NEW COMMENT ADDED',[$comment->text]);
         });
 
-        static::updated(function(){
-            Log::info('COMMENT Approved');
+        static::updated(function($comment){
+            Log::info('COMMENT Approved',[$comment->text]);
         });
         
-        static::saved(function(){
-            Log::info('COMMENT SAVED');
+        static::saved(function($comment){
+            Log::info('COMMENT SAVED',[$comment->text]);
         });
 
         

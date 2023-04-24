@@ -24,12 +24,10 @@ class NewCommentNotification extends Mailable
 
     public function build()
     {
-        $blog = $this->comment->commentable;
-        $user = $blog->user;
-        $email = $user->name;
+        $name = $this->comment->name;
         return $this->view('commentApproveMail')
         ->subject('New Comment Notification')->with([
-            'name' => $email,
+            'name' => $name,
             'text' => $this->comment->text
         ]);
     }

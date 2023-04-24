@@ -102,18 +102,28 @@ License: You must have a valid license purchased only from themeforest(the above
                               @csrf
 								<div class="form-group mb-5">
 									<input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Fullname" name="fullname" />
-									<span class="text-danger" id="fullname_error"></span>
+									@if($errors->has('fullname'))
+									<span class="text-danger" id="fullname_error">{{ $errors->first('fullname') }}</span>
+									@endif
+									
 								</div>
 								<div class="form-group mb-5">
 									<input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Email" name="email" autocomplete="off" />
-									<span class="text-danger" id="email_error"></span>
+									@if(Session::has('message'))
+<p class="alert alert-info">{{ Session::get('message') }}</p>
+@endif
+									@if($errors->has('email'))
+									<span class="text-danger" >{{ $errors->first('email') }}</span>
+									@endif
 								</div>
 								<div class="form-group mb-5">
 									<input class="form-control h-auto form-control-solid py-4 px-8" type="password" placeholder="Password" name="password" />
 								</div>
 								<div class="form-group mb-5">
 									<input class="form-control h-auto form-control-solid py-4 px-8" type="password" placeholder="Confirm Password" name="cpassword" />
-									<span class="text-danger" id="password_error"></span>
+									@if($errors->has('password'))
+									<span class="text-danger" id="password_error">{{ $errors->first('password') }}</span>
+									@endif
 								</div>
 								<div class="form-group mb-5">
 									<input class="form-control h-auto form-control-solid py-4 px-8" id="kt_inputmask_5" type="text" im-insert="true" placeholder="Mobile No" name="mobile_no" />

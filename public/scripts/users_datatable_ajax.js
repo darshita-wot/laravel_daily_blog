@@ -1,19 +1,19 @@
 "use strict";
 // Class definition
 
-var KTDatatableRemoteAjaxDemo = function() {
+var KTDatatableRemoteAjaxDemo = function () {
     // Private functions
 
     // basic demo
-    var demo = function() {
+    var demo = function () {
 
         var datatable = $('#kt_datatable').KTDatatable({
             // datasource definition
             rows: {
                 beforeTemplate: function (raw, data, index) {
-                    var page = datatable.getCurrentPage()	;
+                    var page = datatable.getCurrentPage();
                     var length = datatable.getPageSize();
-                    var serial = (page * length) - (length-1) +(index) ;
+                    var serial = (page * length) - (length - 1) + (index);
                     $("td:eq(0)", raw).html(`<span width='80px'>${serial}</span>`);
                 },
 
@@ -28,7 +28,7 @@ var KTDatatableRemoteAjaxDemo = function() {
                                 "content"
                             ),
                         },
-                        map: function(raw) {
+                        map: function (raw) {
                             // sample data mapping
                             var dataSet = raw;
                             if (typeof raw.data !== 'undefined') {
@@ -61,8 +61,7 @@ var KTDatatableRemoteAjaxDemo = function() {
             },
 
             // columns definition
-            columns: [
-                {
+            columns: [{
                     field: "id",
                     title: "No",
                     // sortable: false,
@@ -70,41 +69,41 @@ var KTDatatableRemoteAjaxDemo = function() {
                     type: "number",
                     selector: false,
                     textAlign: "center",
-                   
+
                 },
-             {
-                field: 'name',
-                width: 100,
-                title: 'Name',
-            }, {
-                field: 'email',
-                width:100,
-                title: 'Email',
-            }, {
-                field: 'mobile_no',
-                title: 'Mobile No',
-            },
-            {
-                field: 'birth_date',
-                title: 'Birth Date',
-            }, 
-            {
-                field: 'is_active',
-                title: 'Status',
-                // callback function support for column rendering
-                template: function(row) {
-                    var status = {
-                        1: {
-                            'title': 'Active',
-                            'class': 'checked'
-                        },
-                        0: {
-                            'title': 'Inactive',
-                            'class': ' '
-                        },
-                    };
-                    // return '<span class="label font-weight-bold label-lg ' + status[row.is_active].class + ' label-inline">' + status[row.is_active].title + '</span>';
-                    return `
+                {
+                    field: 'name',
+                    width: 100,
+                    title: 'Name',
+                }, {
+                    field: 'email',
+                    width: 100,
+                    title: 'Email',
+                }, {
+                    field: 'mobile_no',
+                    title: 'Mobile No',
+                },
+                {
+                    field: 'birth_date',
+                    title: 'Birth Date',
+                },
+                {
+                    field: 'is_active',
+                    title: 'Status',
+                    // callback function support for column rendering
+                    template: function (row) {
+                        var status = {
+                            1: {
+                                'title': 'Active',
+                                'class': 'checked'
+                            },
+                            0: {
+                                'title': 'Inactive',
+                                'class': ' '
+                            },
+                        };
+                        // return '<span class="label font-weight-bold label-lg ' + status[row.is_active].class + ' label-inline">' + status[row.is_active].title + '</span>';
+                        return `
                     <div class="col-3">
                         <span class="switch switch-primary">
                             <label>
@@ -113,17 +112,17 @@ var KTDatatableRemoteAjaxDemo = function() {
                             </label>
                         </span>
                     </div>`;
+                    },
                 },
-            }, 
-            {
-                field: 'Actions',
-                title: 'Actions',
-                sortable: false,
-                width: 125,
-                overflow: 'visible',
-                autoHide: false,
-                template: function(raw) {
-                    return `\
+                {
+                    field: 'Actions',
+                    title: 'Actions',
+                    sortable: false,
+                    width: 125,
+                    overflow: 'visible',
+                    autoHide: false,
+                    template: function (raw) {
+                        return `\
                         <button id='edit${raw.id}'  class="edit btn btn-sm btn-clean btn-icon mr-2" title="Edit details">\
                             <span class="svg-icon svg-icon-md">\
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
@@ -147,17 +146,17 @@ var KTDatatableRemoteAjaxDemo = function() {
                             </span>\
                         </button>\
                     `;
-                },
-            }
-        ],
+                    },
+                }
+            ],
 
         });
 
-		$('#kt_datatable_search_status').on('change', function() {
+        $('#kt_datatable_search_status').on('change', function () {
             datatable.search($(this).val().toLowerCase(), 'Status');
         });
 
-        $('#kt_datatable_search_type').on('change', function() {
+        $('#kt_datatable_search_type').on('change', function () {
             datatable.search($(this).val().toLowerCase(), 'Type');
         });
 
@@ -167,18 +166,18 @@ var KTDatatableRemoteAjaxDemo = function() {
 
     return {
         // public functions
-        init: function() {
+        init: function () {
             demo();
         },
     };
 }();
 
-var KTUser = function(){
+var KTUser = function () {
 
-    var _handleAddUserForm = function (){
+    var _handleAddUserForm = function () {
         var validation;
         var form = KTUtil.getById('addUser');
-    
+
         validation = FormValidation.formValidation(
             form, {
                 fields: {
@@ -188,8 +187,7 @@ var KTUser = function(){
                                 message: "Username is required",
                             },
                             stringLength: {
-                                message:
-                                    "The Username must be more than 5 characters long",
+                                message: "The Username must be more than 5 characters long",
                                 min: 5,
                             },
                         },
@@ -210,20 +208,19 @@ var KTUser = function(){
                                 message: "The password is required",
                             },
                             stringLength: {
-                                message:
-                                    "The password must be more than 5 characters long",
+                                message: "The password must be more than 5 characters long",
                                 min: 5,
                             },
                         },
                     },
-                    mobile_no:{
+                    mobile_no: {
                         validators: {
                             notEmpty: {
                                 message: "The mobile no is required",
                             },
                         }
                     },
-                    birthday_date :{
+                    birthday_date: {
                         validators: {
                             notEmpty: {
                                 message: "The birthday date is required",
@@ -237,31 +234,31 @@ var KTUser = function(){
                 }
             },
         );
-    
+
         $('#saveUser').on('click', function (e) {
             e.preventDefault();
-    
+
             let formData = $("#addUser").serialize();
-    
+
             validation.validate().then(function (status) {
                 if (status == 'Valid') {
-    
+
                     $.ajax({
                         url: '/registration',
                         type: 'POST',
                         data: formData,
                         dataType: 'json',
-    
+
                         success: function (response) {
-                            if(response.status == 'success'){
+                            if (response.status == 'success') {
                                 $("#addUserModal").modal('hide');
                                 $("#kt_datatable").KTDatatable('reload');
                                 $('#addUser').trigger('reset');
                                 $(".fv-plugins-message-container").html('');
                                 $(".form-control").removeClass('is-invalid');
-                                $(".form-control").removeClass('is-valid'); 
+                                $(".form-control").removeClass('is-valid');
                                 toastr.success("New User Added!");
-                            }else{
+                            } else {
                                 if (response.data.fullname) {
                                     $("#fullname_error").html(
                                         `${response.data.fullname}`
@@ -320,19 +317,19 @@ var KTUser = function(){
             });
         });
 
-        $(".closeAddModal").on("click",function(){
+        $(".closeAddModal").on("click", function () {
             $('#addUser').trigger('reset');
             $(".fv-plugins-message-container").html('');
             $(".form-control").removeClass('is-invalid');
-            $(".form-control").removeClass('is-valid'); 
+            $(".form-control").removeClass('is-valid');
             $('.error').html('');
         });
     }
 
-    var _handleUpdateUserForm = function(){
+    var _handleUpdateUserForm = function () {
         var validation;
         var form = KTUtil.getById('updateUser');
-    
+
         validation = FormValidation.formValidation(
             form, {
                 fields: {
@@ -342,8 +339,7 @@ var KTUser = function(){
                                 message: "Username is required",
                             },
                             stringLength: {
-                                message:
-                                    "The Username must be more than 5 characters long",
+                                message: "The Username must be more than 5 characters long",
                                 min: 5,
                             },
                         },
@@ -364,20 +360,19 @@ var KTUser = function(){
                                 message: "The password is required",
                             },
                             stringLength: {
-                                message:
-                                    "The password must be more than 5 characters long",
+                                message: "The password must be more than 5 characters long",
                                 min: 5,
                             },
                         },
                     },
-                    mobile_no:{
+                    mobile_no: {
                         validators: {
                             notEmpty: {
                                 message: "The mobile no is required",
                             },
                         }
                     },
-                    birthday_date :{
+                    birthday_date: {
                         validators: {
                             notEmpty: {
                                 message: "The birthday date is required",
@@ -391,31 +386,31 @@ var KTUser = function(){
                 }
             },
         );
-    
+
         $('#updateUserBtn').on('click', function (e) {
             e.preventDefault();
-    
+
             let formData = $("#updateUser").serialize();
-    
+
             validation.validate().then(function (status) {
                 if (status == 'Valid') {
-    
+
                     $.ajax({
                         url: '/updateuser',
                         type: 'POST',
                         data: formData,
                         dataType: 'json',
-    
+
                         success: function (response) {
-                            if(response.status == 'success'){
+                            if (response.status == 'success') {
                                 $("#editUserModal").modal('hide');
                                 $("#kt_datatable").KTDatatable('reload');
                                 $('#updateUser').trigger('reset');
                                 $(".fv-plugins-message-container").html('');
                                 $(".form-control").removeClass('is-invalid');
-                                $(".form-control").removeClass('is-valid'); 
+                                $(".form-control").removeClass('is-valid');
                                 toastr.success(`${response.data}`);
-                            }else{
+                            } else {
                                 if (response.data.fullname) {
                                     $("#edit_fullname_error").html(
                                         `${response.data.fullname}`
@@ -474,17 +469,17 @@ var KTUser = function(){
             });
         });
 
-        $(".closeEditModal").on("click",function(){
+        $(".closeEditModal").on("click", function () {
             $('#updateUser').trigger('reset');
             $(".fv-plugins-message-container").html('');
             $(".form-control").removeClass('is-invalid');
-            $(".form-control").removeClass('is-valid'); 
+            $(".form-control").removeClass('is-valid');
             $('.error').html('');
         });
     }
-   
-     // Public Functions
-     return {
+
+    // Public Functions
+    return {
         // public functions
         init: function () {
             _handleAddUserForm();
@@ -495,38 +490,40 @@ var KTUser = function(){
 
 
 
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
     KTDatatableRemoteAjaxDemo.init();
     KTUser.init();
 
-    $(document).on('click','.edit',function(){
+    $(document).on('click', '.edit', function () {
         let edit_id = $(this).attr('id');
-        let id = edit_id.substring(4,edit_id.length);
-        
+        let id = edit_id.substring(4, edit_id.length);
+
         $('#editUserModal').modal('show');
 
         $.ajax({
             url: '/edituser',
-            type:'GET',
-            data:{id : id},
-            dataType:'json',
-            success:function(response){
-                if(response.status == 'success'){
+            type: 'GET',
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response.status == 'success') {
                     $("#editUserModal").find("#fullname").val(`${response.data.user_info.name}`);
                     $("#editUserModal").find("#email").val(`${response.data.user_info.email}`);
                     $("#editUserModal").find("#password").val(`${response.data.user_info.password}`);
                     $("#editUserModal").find("#kt_inputmask_5").val(`${response.data.user_info.mobile_no}`);
                     $("#editUserModal").find("#kt_datepicker").val(`${response.data.user_info.birth_date}`);
                 }
-                
+
             }
         })
     })
 
-    $(document).on('click','.delete',function(){
+    $(document).on('click', '.delete', function () {
         let delete_id = $(this).attr('id');
-        let del_user_id = delete_id.substring(6,delete_id.length);
-        
+        let del_user_id = delete_id.substring(6, delete_id.length);
+
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -547,19 +544,21 @@ jQuery(document).ready(function() {
                 $.ajax({
                     url: `/userdelete`,
                     type: "GET",
-                    data:{id : del_user_id},
+                    data: {
+                        id: del_user_id
+                    },
                     dataType: "json",
                     success: function (response) {
                         $(`#delete${del_user_id}`).closest("tr").remove();
-                        if(response.status == 'success'){
+                        if (response.status == 'success') {
                             $("#kt_datatable").KTDatatable('reload');
                             toastr.error(`${response.data}`);
-                        }else{
+                        } else {
                             toastr.error(`${response.data}`);
                         }
                     },
                 });
-                
+
             } else if (result.dismiss === "cancel") {
                 Swal.fire({
                     title: "Cancelled",
@@ -570,9 +569,9 @@ jQuery(document).ready(function() {
         });
     })
 
-    $(document).on('click','.check-class',function(){
+    $(document).on('click', '.check-class', function () {
         let user_id = $(this).attr('id');
-        let id = user_id.substring(4,user_id.length);
+        let id = user_id.substring(4, user_id.length);
         console.log(id);
 
         let is_active = $(this).is(':checked') ? 1 : 0;
@@ -583,16 +582,26 @@ jQuery(document).ready(function() {
                     "content"
                 ),
             },
-            type:'POST',
-            data:{is_active : is_active,id : id },
-            dataType:'json',
-            success:function(response){
-                if(response.status == 'success'){
+            type: 'POST',
+            data: {
+                is_active: is_active,
+                id: id
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response.status == 'success') {
                     toastr.success(`${response.data}`)
-                }else{
+                } else {
                     toastr.error(`${response.data}`);
                 }
             }
         })
+    })
+
+    $(document).on('click', '#clear_user', function () {
+        $('#kt_datatable_search_query').val('');
+        const myDataTable = $("#kt_datatable").KTDatatable();
+        myDataTable.search('');
+        myDataTable.sort('name');    
     })
 });

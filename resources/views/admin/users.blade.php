@@ -1,5 +1,7 @@
 @extends('layout/home')
-	
+@section('title')
+<title>Users</title>
+@endsection
 @section('token')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -13,7 +15,7 @@
 											<span class="d-block text-muted pt-2 font-size-sm">all users that have signup for daily blog</span></h3>
 										</div>
 										<div class="card-toolbar">
-											
+									
 											<!--begin::Button-->
 											<button class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#addUserModal">
 											<span class="svg-icon svg-icon-md">
@@ -45,17 +47,18 @@
 																</span>
 															</div>
 														</div>
-														<!-- <div class="col-md-4 my-2 my-md-0">
+														<div class="col-md-4 my-2 my-md-0">
 															<div class="d-flex align-items-center">
-																<label class="mr-3 mb-0 d-none d-md-block">Status:</label>
-																<select class="form-control" id="kt_datatable_search_status">
-																	<option value="">All</option>
-																	<option value="1">Active</option>
-																	<option value="2">InActive</option>
-																	
-																</select>
-															</div>
-														</div> -->
+															<button class="btn btn-success mr-5" id="clear_user">Clear </button>
+															<!-- <label class="mr-3 mb-0 d-none d-md-block">Status:</label> -->
+															<!-- <select class="form-control" id="kt_datatable_search_status">
+																<option value="">All</option>
+																<option value="1">Active</option>
+																<option value="2">InActive</option>
+																
+															</select> -->
+														</div>
+													</div>
 														
 													</div>
 												</div>

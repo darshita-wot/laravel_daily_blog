@@ -27,14 +27,14 @@ class UserRepository implements UserContracts
         $this->request = $request;
     }
 
-    public function userRegistration()
-    {
+    public function userRegistration($request)
+    {   Log::info('request - ',[$request]);
         $user = User::create([
-            'name' => $this->request->fullname,
-            'email' => $this->request->email,
-            'password' => Hash::make($this->request->password),
-            'mobile_no' => $this->request->mobile_no,
-            'birth_date' => $this->request->birthday_date
+            'name' => $request->fullname,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'mobile_no' => $request->mobile_no,
+            'birth_date' => $request->birthday_date
         ]);
 
         $user->assignRole('user');
@@ -238,6 +238,25 @@ class UserRepository implements UserContracts
     {
         $status = Comment::where('id', $this->request->id)->update(['status' => $this->request->status]);
         Log::info('status', [$status]);
+        return $status;
+    }
+
+    public function changePassword()
+    {
+        $user = User::find($this->request->id);
+        Log::info("user found", [$user]);
+
+        $user->password = Hash::make($this->request->password);
+        $user->save();
+
+        return true;
+    }
+
+    public function deleteUserAccount()
+    {Log::info('delete account - ',[$this->request->id]);
+        $status = User::find($this->request->id)->delete();
+        Session::flush();
+        Auth::logout();
         return $status;
     }
 }

@@ -4,7 +4,7 @@ namespace App\Contracts;
 
 interface UserContracts
 {
-    public function userRegistration();
+    public function userRegistration($request);
 
     public function userLogin();
 
@@ -27,4 +27,8 @@ interface UserContracts
     public function userPendingTaskList();
 
     public function commentAprrove();
+
+    public function changePassword();
+
+    public function deleteUserAccount();
 }
