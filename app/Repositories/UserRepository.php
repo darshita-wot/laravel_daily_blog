@@ -40,6 +40,10 @@ class UserRepository implements UserContracts
         $user->assignRole('user');
 
         return $user;
+
+
+
+        
     }
 
     public function userLogin()
@@ -210,9 +214,6 @@ class UserRepository implements UserContracts
 
             $page = $this->request->pagination['page'];
             $perpage = $this->request->pagination['perpage'];
-
-            $field = $this->request->sort['field'];
-            $sort = $this->request->sort['sort'];
 
             $skip = ($page - 1) * $perpage;
             $id = Auth::id();

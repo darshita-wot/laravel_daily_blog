@@ -6,6 +6,7 @@ use App\Contracts\Admin\UserContracts;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Exception;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -44,7 +45,9 @@ class UserController extends Controller
                 $this->request->all(),
                 [
                     'fullname' => 'string|required|min:5',
-                    'email' => 'string|email|required|max:100',
+                    'email' => [
+                        // Rule::unique('users')->ignore(session('id')),
+                    ],
                     'password' => 'string|required|min:5',
                     'mobile_no' => 'required',
                     'birthday_date' => 'required',

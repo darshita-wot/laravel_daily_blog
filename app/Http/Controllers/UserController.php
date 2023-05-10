@@ -31,7 +31,7 @@ class UserController extends Controller
                 
                 $data = $this->repo->userRegistration($request);
                 if (!empty($data)) {
-                    return response()->json(['status' => 'success', 'data' => 'user added']);
+                    return response()->json(['status' => 'success', 'data' => 'user added'],200);
                 } else {
                     return response()->json(['error' => 'Error in User registration']);
                 }
@@ -67,7 +67,7 @@ class UserController extends Controller
             if ($is_login) {
                 return response()->json(['status' => 'success', 'data' => 'user loggedin']);
             } else {
-                return response()->json(['status' => 'invalid', 'data' => 'Invalid login credentials']);
+                return response()->json(['status' => 'invalid', 'data' => 'Invalid login credentials'],401);
             }
         } catch (Exception $e) {
             return response()->json(['failed' => $e->getMessage()]);
@@ -81,9 +81,9 @@ class UserController extends Controller
             $data = $this->repo->forgotPassword();
 
             if ($data) {
-                return response()->json(['status' => 'success', 'data' => 'Please check your mail to reset your password']);
+                return response()->json(['status' => 'success', 'data' => 'Please check your mail to reset your password'],200);
             } else {
-                return response()->json(['status' => 'error', 'data' => "Email doesn't exists"]);
+                return response()->json(['status' => 'error', 'data' => "Email doesn't exists"],404);
             }
 
         } catch (Exception $e) {

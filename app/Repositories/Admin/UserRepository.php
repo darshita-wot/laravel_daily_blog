@@ -30,7 +30,8 @@ class UserRepository implements UserContracts
 
             $field = $this->request->sort['field'];
             $sort = $this->request->sort['sort'];
-
+        //    $field = 'id';
+        //    $sort= 'ASC';
             $skip = ($page - 1) * $perpage;
 
             $search = array();
@@ -110,7 +111,9 @@ class UserRepository implements UserContracts
 
             $field = $this->request->sort['field'];
             $sort = $this->request->sort['sort'];
-
+            
+            // $field = 'name';
+            // $sort = 'ASC';
             $skip = ($page - 1) * $perpage;
 
             $search = array();

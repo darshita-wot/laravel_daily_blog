@@ -23,7 +23,8 @@ class TagRepository implements TagContracts
 
             $field = $this->request->sort['field'];
             $sort = $this->request->sort['sort'];
-
+            // $field = 'name';
+            // $sort = 'ASC';
             $skip = ($page - 1) * $perpage;
 
             $search = array();

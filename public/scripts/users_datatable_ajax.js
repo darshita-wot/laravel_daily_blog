@@ -602,6 +602,6 @@ jQuery(document).ready(function () {
         $('#kt_datatable_search_query').val('');
         const myDataTable = $("#kt_datatable").KTDatatable();
         myDataTable.search('');
-        myDataTable.sort('name');    
+        myDataTable.sort('name');
     })
 });
